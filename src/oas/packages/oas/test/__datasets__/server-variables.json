@@ -1,0 +1,60 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Server variables",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://{name}.example.com:{port}/{basePath}",
+      "variables": {
+        "name": {
+          "default": "demo"
+        },
+        "port": {
+          "default": "443"
+        },
+        "basePath": {
+          "default": "v2"
+        }
+      }
+    },
+    {
+      "url": "{protocol}://{hostname}/api/public/v1",
+      "variables": {
+        "protocol": {
+          "default": "http"
+        },
+        "hostname": {
+          "default": "localhost:10000"
+        }
+      }
+    }
+  ],
+  "paths": {
+    "/post": {
+      "post": {
+        "summary": "Should fetch variables from defaults and user values"
+      }
+    },
+    "/tables/{tableId}/rows/{rowId}": {
+      "put": {
+        "summary": "Should be able to match a complex URL that uses a server that has a full hostname as a server variable.",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tableId",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "in": "path",
+            "name": "rowId",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ]
+      }
+    }
+  }
+}

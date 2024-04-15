@@ -1,0 +1,9 @@
+{
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off",
+
+    "camelcase": ["error", { "allow": ["OpenAPIV3_1"] }],
+
+    "no-case-declarations": "off"
+  }
+}

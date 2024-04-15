@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*,
+*::before,
+*::after {
+	text-rendering: optimizelegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+body {
+	font-family: 'Open Sans Variable', sans-serif;
+}
+
+a {
+	color: theme('colors.accent-100');
+	font-weight: theme('fontWeight.medium');
+
+	:hover {
+		color: theme('colors.accent-300');
+	}
+}
+
+table {
+	border-collapse: collapse;
+	border-radius: theme('borderRadius.lg');
+	border-style: hidden;
+	box-shadow: 0 0 0 1px theme('colors.stripe-200');
+
+	background-color: theme('colors.stripe-400');
+
+	thead th {
+		padding: theme('spacing.2');
+		background-color: theme('colors.stripe-500');
+		text-align: left;
+		font-size: theme('fontSize.sm');
+		border-bottom: 1px solid theme('colors.stripe-200');
+
+		&:first-child {
+			border-top-left-radius: theme('borderRadius.lg');
+		}
+
+		&:last-child {
+			border-top-right-radius: theme('borderRadius.lg');
+		}
+	}
+
+	td {
+		padding: theme('spacing.2');
+		font-size: theme('fontSize.xs');
+	}
+}
+
+ul {
+	list-style-type: disc;
+	margin-left: theme('spacing.4');
+	margin-bottom: theme('spacing.4');
+}
+ul ul,
+ol ul {
+	list-style-type: circle;
+	margin-left: theme('spacing.8');
+}
+
+ol {
+	list-style-type: upper-greek;
+	margin-left: theme('spacing.4');
+	margin-bottom: theme('spacing.4');
+}
+ol ul,
+ol ol {
+	list-style-type: lower-latin;
+	margin-left: theme('spacing.8');
+}
+
+hr {
+	border-top: 1px solid theme('colors.stripe-200');
+}
+
+p {
+	margin-bottom: theme('spacing.4');
+}
+
+h1 {
+	font-size: theme('fontSize.3xl');
+	margin-bottom: theme('spacing.4');
+}
+
+h2 {
+	font-size: theme('fontSize.2xl');
+	margin-bottom: theme('spacing.4');
+}
+
+h3 {
+	font-size: theme('fontSize.xl');
+	margin-bottom: theme('spacing.4');
+}
+
+h4 {
+	font-size: theme('fontSize.lg');
+	margin-bottom: theme('spacing.4');
+}
+
+h5 {
+	font-size: theme('fontSize.base');
+	margin-bottom: theme('spacing.4');
+}
+
+h6 {
+	font-size: theme('fontSize.sm');
+	margin-bottom: theme('spacing.4');
+}

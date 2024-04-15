@@ -1,0 +1,1999 @@
+{
+	"openapi": "3.1.0",
+	"info": {
+		"title": "Ocean.io API Documentation",
+		"summary": "Welcome to Ocean.io's API.",
+		"description": "\n            Welcome to Ocean.io's API.\n            The API can be used to access all our API endpoints, such as our enrich API to look up company information, or our discover API to identify companies based on specific search criteria such as semantic similarity, technologies or industries.\n            Ocean.io's APIs are a set of HTTPS endpoints that you can use to retrieve and integrate Ocean.io's data into your existing workflows.\n            All requests should be made through https and the request and response bodies should be formatted in JSON.\n        ",
+		"version": "2.0.0",
+		"x-logo": { "url": "https://cdn.ocean.io/assets/images/logo/256x92_ocean-logo.svg" }
+	},
+	"servers": [{ "url": "https://api.ocean.io" }],
+	"paths": {
+		"/v2/search/companies": {
+			"post": {
+				"tags": ["Search"],
+				"summary": "Lookalike companies search",
+				"description": "Search companies using filters",
+				"operationId": "searchCompanies",
+				"parameters": [
+					{
+						"name": "apiToken",
+						"in": "query",
+						"required": true,
+						"schema": { "type": "string", "title": "Apitoken" }
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": { "$ref": "#/components/schemas/PublicSearchCompaniesBody" }
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/PublicSearchCompaniesResult" }
+							}
+						}
+					},
+					"404": { "description": "Not found" },
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v2/enrich/company": {
+			"post": {
+				"tags": ["Enrich"],
+				"summary": "Enrich company",
+				"description": "Match a company with our database and enrich it with additional information",
+				"operationId": "enrichCompany",
+				"parameters": [
+					{
+						"name": "apiToken",
+						"in": "query",
+						"required": true,
+						"schema": { "type": "string", "title": "Apitoken" }
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": { "schema": { "$ref": "#/components/schemas/MatchCompanyBody" } }
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": {
+							"application/json": { "schema": { "$ref": "#/components/schemas/PublicCompany" } }
+						}
+					},
+					"404": { "description": "Not found" },
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v2/enrich/person": {
+			"post": {
+				"tags": ["Enrich"],
+				"summary": "Enrich person",
+				"description": "Match a person with our database and enrich it with additional information",
+				"operationId": "enrichPerson",
+				"parameters": [
+					{
+						"name": "apiToken",
+						"in": "query",
+						"required": true,
+						"schema": { "type": "string", "title": "Apitoken" }
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": { "schema": { "$ref": "#/components/schemas/MatchPersonBody" } }
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": {
+							"application/json": { "schema": { "$ref": "#/components/schemas/PublicPerson" } }
+						}
+					},
+					"404": { "description": "Not found" },
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v2/data-fields": {
+			"get": {
+				"tags": ["Data"],
+				"summary": "Get list of available industries, technologies and regions",
+				"description": "Provides a list of all industries and industry categories, technologies and regions searchable by Ocean.io.",
+				"operationId": "getDataFieldsPublic",
+				"parameters": [
+					{
+						"name": "apiToken",
+						"in": "query",
+						"required": true,
+						"schema": { "type": "string", "title": "Apitoken" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/PublicGetDataFieldsResponse" }
+							}
+						}
+					},
+					"404": { "description": "Not found" },
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v2/search/people": {
+			"post": {
+				"tags": ["Search"],
+				"summary": "Search people",
+				"description": "Search people using filters",
+				"operationId": "searchPeople",
+				"parameters": [
+					{
+						"name": "apiToken",
+						"in": "query",
+						"required": true,
+						"schema": { "type": "string", "title": "Apitoken" }
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": { "$ref": "#/components/schemas/PublicSearchPeopleBody" }
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/PublicSearchPeopleResult" }
+							}
+						}
+					},
+					"404": { "description": "Not found" },
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/v2/credits/balance": {
+			"get": {
+				"tags": ["Credits"],
+				"summary": "Get credit balance",
+				"description": "Get credit balance",
+				"operationId": "getCreditBalance",
+				"parameters": [
+					{
+						"name": "apiToken",
+						"in": "query",
+						"required": true,
+						"schema": { "type": "string", "title": "Apitoken" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/GetCreditBalanceResponse" }
+							}
+						}
+					},
+					"404": { "description": "Not found" },
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+							}
+						}
+					}
+				}
+			}
+		},
+		"/internal/credits/balance": {
+			"get": {
+				"tags": ["Credits"],
+				"summary": "Get credit balance internal",
+				"description": "Get credit balance internal",
+				"operationId": "getCreditBalanceInternal",
+				"security": [{ "HTTPBearer": [] }],
+				"parameters": [
+					{
+						"name": "organizationId",
+						"in": "query",
+						"required": false,
+						"schema": {
+							"anyOf": [{ "type": "string" }, { "type": "null" }],
+							"title": "Organizationid"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful Response",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/GetCreditBalanceResponse" }
+							}
+						}
+					},
+					"404": { "description": "Not found" },
+					"422": {
+						"description": "Validation Error",
+						"content": {
+							"application/json": {
+								"schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"CompaniesFilters": {
+				"properties": {
+					"lookalikeDomains": {
+						"anyOf": [
+							{ "items": { "type": "string" }, "type": "array", "maxItems": 10 },
+							{ "type": "null" }
+						],
+						"title": "Similar domains",
+						"description": "Find domains similar to the provided",
+						"examples": [["bestcustomer.com", "idealcustomer.com"]]
+					},
+					"minScore": {
+						"anyOf": [
+							{ "type": "number", "exclusiveMaximum": 1.0, "exclusiveMinimum": 0.0 },
+							{ "type": "null" }
+						],
+						"title": "Minimum score",
+						"description": "Minimum score for companies to appear in the results.",
+						"default": 0.79,
+						"examples": [0.95]
+					},
+					"includeDomains": {
+						"anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+						"title": "Domains to include",
+						"description": "Only return specified domains",
+						"examples": [["interesting.com", "amazing.com"]]
+					},
+					"excludeDomains": {
+						"anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+						"title": "Domains to exclude",
+						"description": "Exclude specified domains from the results",
+						"examples": [["boring.com", "useless.com"]]
+					},
+					"companySizes": {
+						"anyOf": [
+							{ "items": { "$ref": "#/components/schemas/PublicCompanySize" }, "type": "array" },
+							{ "type": "null" }
+						],
+						"title": "Company size",
+						"description": "Filter by company size ranges",
+						"examples": [["2-10", "51-200", "100001-500000"]]
+					},
+					"ecommerce": {
+						"anyOf": [{ "type": "boolean" }, { "type": "null" }],
+						"title": "E-commerce",
+						"description": "true -> returns only e-commerce companies<br>false -> excludes e-commerce companies<br>none -> returns everything",
+						"examples": [true, false]
+					},
+					"socialMedias": {
+						"anyOf": [{ "$ref": "#/components/schemas/SocialMediasFilter" }, { "type": "null" }],
+						"title": "Social medias",
+						"description": "Filter by social media presence",
+						"examples": [{ "medias": ["linkedin", "facebook"], "mode": "anyOf" }]
+					},
+					"yearFounded": {
+						"anyOf": [{ "$ref": "#/components/schemas/FromTo" }, { "type": "null" }],
+						"title": "Year founded",
+						"description": "Filter by year founded",
+						"examples": [{ "from": 1960, "to": 1990 }]
+					},
+					"countriesCount": {
+						"anyOf": [{ "$ref": "#/components/schemas/FromTo" }, { "type": "null" }],
+						"title": "Countries count",
+						"description": "Filter by the number of countries in which the company operates",
+						"examples": [{ "from": 1, "to": 5 }]
+					},
+					"revenues": {
+						"anyOf": [
+							{ "items": { "$ref": "#/components/schemas/Revenue" }, "type": "array" },
+							{ "type": "null" }
+						],
+						"title": "Revenue",
+						"description": "Filter by revenue ranges",
+						"examples": [["0-1M", "1-10M", ">1000M"]]
+					},
+					"employeeCountOcean": {
+						"anyOf": [{ "$ref": "#/components/schemas/FromTo" }, { "type": "null" }],
+						"title": "Employee count",
+						"description": "Only return companies that have a certain number of employee profiles in our database",
+						"examples": [{ "from": 10, "to": 100 }]
+					},
+					"webTrafficVisits": {
+						"anyOf": [{ "$ref": "#/components/schemas/FromTo" }, { "type": "null" }],
+						"title": "Web traffic visits",
+						"description": "Only return companies that have a certain amount of visits",
+						"examples": [{ "from": 1000, "to": 10000 }]
+					},
+					"mobileApps": {
+						"anyOf": [{ "$ref": "#/components/schemas/FromTo" }, { "type": "null" }],
+						"title": "Number of mobile apps",
+						"description": "Filter by the number of mobile apps that the company produced",
+						"examples": [{ "from": 1, "to": 5 }]
+					},
+					"headquarterGeolocation": {
+						"anyOf": [{ "$ref": "#/components/schemas/GeolocationFilter" }, { "type": "null" }],
+						"title": "Headquarter location",
+						"description": "Filter by headquarter location",
+						"examples": [{ "latitude": 38.880817, "longitude": -77.10216, "radius": 1000 }]
+					},
+					"geolocation": {
+						"anyOf": [{ "$ref": "#/components/schemas/GeolocationFilter" }, { "type": "null" }],
+						"title": "Other locations",
+						"description": "Filter by non-headquarter locations",
+						"examples": [{ "latitude": 50.83348, "longitude": -0.1410065, "radius": 5000 }]
+					},
+					"locationsCount": {
+						"anyOf": [{ "$ref": "#/components/schemas/FromTo" }, { "type": "null" }],
+						"title": "Locations count",
+						"description": "Only return companies that have a certain amount of locations",
+						"examples": [{ "from": 5, "to": 10 }]
+					},
+					"departmentSizes": {
+						"anyOf": [
+							{ "items": { "$ref": "#/components/schemas/DepartmentSizeFilter" }, "type": "array" },
+							{ "type": "null" }
+						],
+						"title": "Department size filter",
+						"description": "Filter by the size of company departments",
+						"examples": [[{ "department": "Accounting and Finance", "from": 5, "to": 10 }]]
+					},
+					"keywords": {
+						"anyOf": [{ "$ref": "#/components/schemas/KeywordsFilter" }, { "type": "null" }],
+						"title": "Keywords filter",
+						"description": "Filter by keywords",
+						"examples": [{ "keywords": ["premium copy paper", "paper"], "mode": "anyOf" }]
+					},
+					"states": {
+						"anyOf": [
+							{ "items": { "$ref": "#/components/schemas/State" }, "type": "array" },
+							{ "type": "null" }
+						],
+						"title": "State filter",
+						"description": "Filter by country states (if applicable)",
+						"examples": [
+							[
+								{ "abbreviation": "ca", "country": "us" },
+								{ "abbreviation": "yt", "country": "ca" }
+							]
+						]
+					},
+					"employeeCountLinkedin": {
+						"anyOf": [{ "$ref": "#/components/schemas/FromTo" }, { "type": "null" }],
+						"title": "Employee count on LinkedIn",
+						"description": "The number of employees a company has on LinkedIn",
+						"examples": [{ "from": 50, "to": 100 }]
+					},
+					"countries": {
+						"anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+						"title": "Countries",
+						"description": "Filter by **all** countries where the company has presence.<br>Must be provided as alpha-2 ISO 3166 country codes.<br>`[\"es\", \"pt\"]` means Spain (primary/not primary) **OR** Portugal (primary/not primary).<br>if additional filter `primaryCountries = [\"de\"]` is used then it means:<br>(Spain (not primary) **OR** Portugal (not primary)) **AND** Germany (primary)",
+						"examples": [["es", "pt"]]
+					},
+					"primaryCountries": {
+						"anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+						"title": "Primary countries",
+						"description": "Filter only by **primary** countries where the company has presence.<br>Must be provided as alpha-2 ISO 3166 country codes.<br>`countries = [\"de\", \"at\"]` means Germany (primary) **OR** Austria (primary).<br>if additional filter `countries = [\"es\"]` is used then it means:<br>(Germany (primary) **OR** Austria (primary)) **AND** Spain (not primary)",
+						"examples": [["de"]]
+					},
+					"industries": {
+						"anyOf": [{ "$ref": "#/components/schemas/IndustriesFilter" }, { "type": "null" }],
+						"title": "Industries",
+						"description": "Filter by company industries. Available values are located at */v2/data-fields* endpoint.<br>",
+						"examples": [{ "industries": ["Advertising Platforms", "Biopharma"], "mode": "anyOf" }]
+					},
+					"industryCategories": {
+						"anyOf": [
+							{ "$ref": "#/components/schemas/IndustryCategoriesFilter" },
+							{ "type": "null" }
+						],
+						"title": "Industry categories",
+						"description": "Filter by company industry categories. Available values are located at */v2/data-fields* endpoint.<br>",
+						"examples": [{ "industryCategories": ["Real Estate", "Hardware"], "mode": "anyOf" }]
+					},
+					"technologies": {
+						"anyOf": [{ "$ref": "#/components/schemas/TechnologiesFilter" }, { "type": "null" }],
+						"title": "Technologies",
+						"description": "Filter by software technologies used by the company. Available values are located at */v2/data-fields* endpoint.<br>",
+						"examples": [{ "mode": "anyOf", "technologies": ["Amazon Advertising", "Google Maps"] }]
+					}
+				},
+				"additionalProperties": false,
+				"type": "object",
+				"title": "CompaniesFilters"
+			},
+			"Company": {
+				"properties": {
+					"name": {
+						"type": "string",
+						"title": "Company name",
+						"description": "The name of the company",
+						"examples": ["Ocean ApS"]
+					},
+					"registrationNumber": {
+						"type": "string",
+						"title": "Registration number",
+						"description": "The registration number of the company",
+						"examples": ["123456789"]
+					},
+					"email": {
+						"type": "string",
+						"title": "Email",
+						"description": "The email of the company",
+						"examples": ["hello@ocean.io"]
+					},
+					"phone": {
+						"type": "string",
+						"title": "Phone",
+						"description": "The phone number of the company",
+						"examples": ["+45 12345678"]
+					},
+					"countryCode": {
+						"type": "string",
+						"title": "Country code",
+						"description": "Country code of the company's headquarters",
+						"examples": ["dk"]
+					},
+					"state": {
+						"type": "string",
+						"title": "State",
+						"description": "Name of the state/region where the company is located",
+						"examples": ["Arkansas"]
+					},
+					"city": {
+						"type": "string",
+						"title": "City",
+						"description": "The city where the company is located",
+						"examples": ["Copenhagen"]
+					},
+					"streetAddress": {
+						"type": "string",
+						"title": "Street address",
+						"description": "Street address of the company",
+						"examples": ["Strandgade 6"]
+					},
+					"postalCode": {
+						"type": "string",
+						"title": "Postal code",
+						"description": "The postal code of the company",
+						"examples": ["1401"]
+					},
+					"address": {
+						"type": "string",
+						"title": "Address",
+						"description": "Full address of the company",
+						"examples": ["Strandgade 6, 1401 Copenhagen"]
+					},
+					"facebook": {
+						"type": "string",
+						"title": "Facebook",
+						"description": "The Facebook page of the company",
+						"examples": ["https://www.facebook.com/oceanio"]
+					},
+					"twitter": {
+						"type": "string",
+						"title": "Twitter",
+						"description": "Company's Twitter page",
+						"examples": ["https://twitter.com/oceanio"]
+					},
+					"linkedin": {
+						"type": "string",
+						"title": "LinkedIn",
+						"description": "LinkedIn page of the company",
+						"examples": ["https://www.linkedin.com/company/oceanio"]
+					},
+					"instagram": {
+						"type": "string",
+						"title": "Instagram",
+						"description": "Instagram page of the company",
+						"examples": ["https://www.instagram.com/oceanio"]
+					},
+					"xing": {
+						"type": "string",
+						"title": "Xing",
+						"description": "The Xing page of the company",
+						"examples": ["https://www.xing.com/oceanio"]
+					},
+					"domain": {
+						"type": "string",
+						"title": "Domain",
+						"description": "The domain name of the company's website",
+						"examples": ["ocean.io"]
+					},
+					"youtube": {
+						"type": "string",
+						"title": "YouTube",
+						"description": "The YouTube page of the company",
+						"examples": ["https://www.youtube.com/oceanio"]
+					}
+				},
+				"additionalProperties": false,
+				"type": "object",
+				"title": "Company"
+			},
+			"ContactNumber": {
+				"properties": {
+					"number": { "type": "string", "title": "Number", "description": "Contact number" },
+					"country": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Contact number country code",
+						"description": "Country code of the contact number"
+					},
+					"primary": {
+						"type": "boolean",
+						"title": "Primary contact number",
+						"description": "True if the contact number is the primary contact number of the company"
+					}
+				},
+				"type": "object",
+				"required": ["number"],
+				"title": "ContactNumber"
+			},
+			"Credits": {
+				"properties": {
+					"standard": {
+						"type": "integer",
+						"title": "Standard",
+						"description": "Number of 'standard' credits left.",
+						"default": 0
+					},
+					"email": {
+						"type": "integer",
+						"title": "Email",
+						"description": "Number of 'email' credits left.",
+						"default": 0
+					}
+				},
+				"type": "object",
+				"title": "Credits"
+			},
+			"Department": {
+				"type": "string",
+				"enum": [
+					"Accounting and Finance",
+					"Board",
+					"Business Support",
+					"Customer Relations",
+					"Design",
+					"Editorial Personnel",
+					"Engineering",
+					"Founder/Owner",
+					"Healthcare",
+					"HR",
+					"Legal",
+					"Management",
+					"Manufacturing",
+					"Marketing and Advertising",
+					"Operations",
+					"PR and Communications",
+					"Procurement",
+					"Product",
+					"Quality Control",
+					"R&D",
+					"Sales",
+					"Security",
+					"Supply Chain",
+					"Other"
+				],
+				"title": "Department"
+			},
+			"DepartmentSize": {
+				"properties": {
+					"department": {
+						"allOf": [{ "$ref": "#/components/schemas/Department" }],
+						"description": "Department name"
+					},
+					"size": { "type": "integer", "title": "Size", "description": "Department size" }
+				},
+				"type": "object",
+				"required": ["department", "size"],
+				"title": "DepartmentSize"
+			},
+			"DepartmentSizeFilter": {
+				"properties": {
+					"from": {
+						"anyOf": [{ "type": "integer", "minimum": 0.0 }, { "type": "null" }],
+						"title": "Greater than or equal to",
+						"description": "Greater than or equal to"
+					},
+					"to": {
+						"anyOf": [{ "type": "integer", "minimum": 0.0 }, { "type": "null" }],
+						"title": "Less than or equal to",
+						"description": "Less than or equal to"
+					},
+					"department": { "$ref": "#/components/schemas/Department" }
+				},
+				"additionalProperties": false,
+				"type": "object",
+				"required": ["department"],
+				"title": "DepartmentSizeFilter"
+			},
+			"FromTo": {
+				"properties": {
+					"from": {
+						"anyOf": [{ "type": "integer", "minimum": 0.0 }, { "type": "null" }],
+						"title": "Greater than or equal to",
+						"description": "Greater than or equal to"
+					},
+					"to": {
+						"anyOf": [{ "type": "integer", "minimum": 0.0 }, { "type": "null" }],
+						"title": "Less than or equal to",
+						"description": "Less than or equal to"
+					}
+				},
+				"additionalProperties": false,
+				"type": "object",
+				"title": "FromTo"
+			},
+			"GeolocationFilter": {
+				"properties": {
+					"latitude": {
+						"type": "number",
+						"title": "Latitude",
+						"description": "Latitude of the location"
+					},
+					"longitude": {
+						"type": "number",
+						"title": "Longitude",
+						"description": "Longitude of the location"
+					},
+					"radius": { "type": "integer", "title": "Radius", "description": "Radius in meters" }
+				},
+				"additionalProperties": false,
+				"type": "object",
+				"required": ["latitude", "longitude", "radius"],
+				"title": "GeolocationFilter"
+			},
+			"GetCreditBalanceResponse": {
+				"properties": {
+					"oneTimeCredits": {
+						"allOf": [{ "$ref": "#/components/schemas/Credits" }],
+						"description": "One-time credits balance.",
+						"examples": [{ "email": 100, "standard": 100 }]
+					}
+				},
+				"type": "object",
+				"title": "GetCreditBalanceResponse"
+			},
+			"HTTPValidationError": {
+				"properties": {
+					"detail": {
+						"items": { "$ref": "#/components/schemas/ValidationError" },
+						"type": "array",
+						"title": "Detail"
+					}
+				},
+				"type": "object",
+				"title": "HTTPValidationError"
+			},
+			"Impressum": {
+				"properties": {
+					"company": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Company name",
+						"description": "Company name as mentioned in Impressum",
+						"examples": ["Dunder Mifflin Paper Company, Inc."]
+					},
+					"address": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Address",
+						"description": "Company address as mentioned in Impressum",
+						"examples": ["Scranton Business Park, 1725 Slough Ave Suit 200, Scranton, USA"]
+					},
+					"email": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Email",
+						"description": "Company email as mentioned in Impressum",
+						"examples": ["email@dundermifflin.com"]
+					},
+					"phone": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Phone",
+						"description": "Company phone as mentioned in Impressum",
+						"examples": ["+35123456789"]
+					},
+					"fax": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Fax",
+						"description": "Company fax as mentioned in Impressum",
+						"examples": ["+35123456790"]
+					},
+					"vat": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "VAT",
+						"description": "VAT number as mentioned in Impressum",
+						"examples": ["123456"]
+					},
+					"url": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Impressum url",
+						"description": "url where Impressum can be found",
+						"examples": ["https://dundermifflinpaper.com/impressum"]
+					},
+					"people": {
+						"anyOf": [
+							{ "items": { "$ref": "#/components/schemas/ImpressumPerson" }, "type": "array" },
+							{ "type": "null" }
+						],
+						"title": "People",
+						"description": "People mentioned in Impressum"
+					}
+				},
+				"type": "object",
+				"title": "Impressum"
+			},
+			"ImpressumPerson": {
+				"properties": {
+					"name": { "type": "string", "title": "Name", "examples": ["Michael Scott"] },
+					"position": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Position",
+						"examples": ["Regional Manager"]
+					}
+				},
+				"type": "object",
+				"required": ["name"],
+				"title": "ImpressumPerson"
+			},
+			"IndustriesFilter": {
+				"properties": {
+					"industries": {
+						"items": { "type": "string" },
+						"type": "array",
+						"title": "Industries",
+						"description": "Array of the industries to include"
+					},
+					"mode": {
+						"type": "string",
+						"enum": ["anyOf", "allOf"],
+						"title": "Search mode",
+						"description": "[default] anyOf - match at least one of the industries<br>allOf - match all of the industries",
+						"default": "anyOf"
+					}
+				},
+				"additionalProperties": false,
+				"type": "object",
+				"required": ["industries"],
+				"title": "IndustriesFilter"
+			},
+			"IndustryCategoriesFilter": {
+				"properties": {
+					"industryCategories": {
+						"items": { "type": "string" },
+						"type": "array",
+						"title": "Industry categories",
+						"description": "Array of the industry categories to include"
+					},
+					"mode": {
+						"type": "string",
+						"enum": ["anyOf", "allOf"],
+						"title": "Search mode",
+						"description": "[default] anyOf - match at least one of the industry categories<br>allOf - match all of the industry categories",
+						"default": "anyOf"
+					}
+				},
+				"additionalProperties": false,
+				"type": "object",
+				"required": ["industryCategories"],
+				"title": "IndustryCategoriesFilter"
+			},
+			"KeywordsFilter": {
+				"properties": {
+					"keywords": {
+						"items": { "type": "string" },
+						"type": "array",
+						"title": "Keywords",
+						"description": "Array of the keywords"
+					},
+					"mode": {
+						"type": "string",
+						"enum": ["anyOf", "allOf", "noneOf"],
+						"title": "Search mode",
+						"description": "[default] anyOf - match at least one of the keywords<br>allOf - match all of the keywords<br>noneOf - match none of the keywords",
+						"default": "anyOf"
+					}
+				},
+				"additionalProperties": false,
+				"type": "object",
+				"required": ["keywords"],
+				"title": "KeywordsFilter"
+			},
+			"Location": {
+				"properties": {
+					"primary": {
+						"type": "boolean",
+						"title": "Primary location",
+						"description": "True if the location is the headquarter of the company",
+						"default": false,
+						"examples": [true, false]
+					},
+					"latitude": {
+						"anyOf": [{ "type": "number" }, { "type": "null" }],
+						"title": "Latitude",
+						"description": "Latitude of the location",
+						"examples": [43.6471]
+					},
+					"longitude": {
+						"anyOf": [{ "type": "number" }, { "type": "null" }],
+						"title": "Longitude",
+						"description": "Longitude of the location",
+						"examples": [-79.3971]
+					},
+					"country": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Country code",
+						"description": "Country code of the location",
+						"examples": ["us"]
+					},
+					"locality": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Locality/City",
+						"description": "Locality (city) of the location",
+						"examples": ["Scranton"]
+					},
+					"region": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Region",
+						"description": "Region of the location",
+						"examples": ["Lackawanna County"]
+					},
+					"postalCode": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Postal code",
+						"description": "Postal code of the location",
+						"examples": ["18505"]
+					},
+					"streetAddress": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Street address",
+						"description": "Street address of the location",
+						"examples": ["Scranton Business Park, 1725 Slough Ave Suit 200"]
+					},
+					"state": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "State",
+						"description": "ISO state abbreviation of the location (if applicable)",
+						"examples": ["pa"]
+					},
+					"regionCode": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Region code",
+						"description": "Region code of the location",
+						"examples": ["PA"]
+					}
+				},
+				"type": "object",
+				"title": "Location"
+			},
+			"MatchCompanyBody": {
+				"properties": {
+					"company": {
+						"allOf": [{ "$ref": "#/components/schemas/Company" }],
+						"description": "The company to match with"
+					},
+					"people": {
+						"items": { "$ref": "#/components/schemas/Person" },
+						"type": "array",
+						"title": "People",
+						"description": "The people to match company with"
+					}
+				},
+				"additionalProperties": false,
+				"type": "object",
+				"title": "MatchCompanyBody"
+			},
+			"MatchPersonBody": {
+				"properties": {
+					"person": {
+						"allOf": [{ "$ref": "#/components/schemas/Person" }],
+						"description": "The person to match with"
+					},
+					"company": {
+						"anyOf": [{ "$ref": "#/components/schemas/Company" }, { "type": "null" }],
+						"title": "Company",
+						"description": "The company to match the person with"
+					}
+				},
+				"additionalProperties": false,
+				"type": "object",
+				"required": ["person"],
+				"title": "MatchPersonBody"
+			},
+			"Media": {
+				"properties": {
+					"url": { "type": "string", "title": "Media URL", "description": "URL of the media" },
+					"handle": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Handle",
+						"description": "ids extracted from social media urls"
+					},
+					"name": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Name",
+						"description": "Name of the company as it appears in the social media account"
+					}
+				},
+				"type": "object",
+				"required": ["url"],
+				"title": "Media"
+			},
+			"Medias": {
+				"properties": {
+					"linkedin": {
+						"anyOf": [{ "$ref": "#/components/schemas/Media" }, { "type": "null" }],
+						"description": "LinkedIn page associated with the company",
+						"examples": [
+							{
+								"handle": "dunder-mifflin",
+								"name": "Dunder Mifflin Paper Company, Inc.",
+								"url": "https://www.linkedin.com/company/dunder-mifflin"
+							}
+						]
+					},
+					"twitter": {
+						"anyOf": [{ "$ref": "#/components/schemas/Media" }, { "type": "null" }],
+						"description": "Twitter page associated with the company",
+						"examples": [
+							{
+								"handle": "dunder-mifflin",
+								"name": "Dunder Mifflin Paper Company, Inc.",
+								"url": "https://twitter.com/dunder-mifflin"
+							}
+						]
+					},
+					"youtube": {
+						"anyOf": [{ "$ref": "#/components/schemas/Media" }, { "type": "null" }],
+						"description": "YouTube page associated with the company",
+						"examples": [
+							{
+								"handle": "dunder-mifflin",
+								"name": "Dunder Mifflin Paper Company, Inc.",
+								"url": "https://youtube.com/channel/dunder-mifflin"
+							}
+						]
+					},
+					"facebook": {
+						"anyOf": [{ "$ref": "#/components/schemas/Media" }, { "type": "null" }],
+						"description": "Facebook page associated with the company",
+						"examples": [
+							{
+								"handle": "dunder-mifflin",
+								"name": "Dunder Mifflin Paper Company, Inc.",
+								"url": "https://facebook.com/dunder-mifflin"
+							}
+						]
+					},
+					"xing": {
+						"anyOf": [{ "$ref": "#/components/schemas/Media" }, { "type": "null" }],
+						"description": "Xing page associated with the company",
+						"examples": [
+							{
+								"handle": "dunder-mifflin",
+								"name": "Dunder Mifflin Paper Company, Inc.",
+								"url": "https://xing.com/dunder-mifflin"
+							}
+						]
+					},
+					"tiktok": {
+						"anyOf": [{ "$ref": "#/components/schemas/Media" }, { "type": "null" }],
+						"description": "TikTok page associated with the company",
+						"examples": [
+							{
+								"handle": "dunder-mifflin",
+								"name": "Dunder Mifflin Paper Company, Inc.",
+								"url": "https://tiktok.com/dunder-mifflin"
+							}
+						]
+					},
+					"instagram": {
+						"anyOf": [{ "$ref": "#/components/schemas/Media" }, { "type": "null" }],
+						"description": "Instagram page associated with the company",
+						"examples": [
+							{
+								"handle": "dunder-mifflin",
+								"name": "Dunder Mifflin Paper Company, Inc.",
+								"url": "https://instagram.com/dunder-mifflin"
+							}
+						]
+					}
+				},
+				"type": "object",
+				"title": "Medias"
+			},
+			"MobileApp": {
+				"properties": {
+					"link": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "url",
+						"description": "Website address for this app",
+						"examples": ["https://www.my.app.com/"]
+					},
+					"name": {
+						"type": "string",
+						"title": "App name",
+						"description": "App name",
+						"examples": ["My awesome app"]
+					}
+				},
+				"type": "object",
+				"required": ["name"],
+				"title": "MobileApp"
+			},
+			"PeopleFilters": {
+				"properties": {
+					"includeIds": {
+						"anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+						"title": "Ids to include",
+						"description": "Only return specified people. Note: this is not implemented yet.",
+						"examples": [["51e19df9c1d70c7c", "971b1b1bfb1ffb1a"]]
+					},
+					"excludeIds": {
+						"anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+						"title": "Ids to exclude",
+						"description": "Exclude specified people from the results. Note: this is not implemented yet.",
+						"examples": [["51e19df9c1d70c7c", "971b1b1bfb1ffb1a"]]
+					},
+					"seniorities": {
+						"anyOf": [
+							{ "items": { "$ref": "#/components/schemas/Seniority" }, "type": "array" },
+							{ "type": "null" }
+						],
+						"title": "Seniorities",
+						"description": "Filter by seniorities. Available values are located at */v2/data-fields* endpoint.<br>",
+						"examples": [["Founder", "Owner"]]
+					},
+					"jobTitles": {
+						"anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+						"title": "Jobtitles",
+						"description": "Filter by job title",
+						"examples": [["CEO", "CTO"]]
+					},
+					"excludeJobTitles": {
+						"anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+						"title": "Excludejobtitles",
+						"description": "Exclude people by job title",
+						"examples": [["CEO", "CTO"]]
+					},
+					"departments": {
+						"anyOf": [
+							{ "items": { "$ref": "#/components/schemas/Department" }, "type": "array" },
+							{ "type": "null" }
+						],
+						"title": "Departments",
+						"description": "Filter by departments. Available values are located at */v2/data-fields* endpoint.<br>",
+						"examples": [["Management", "Marketing and Advertising"]]
+					},
+					"countries": {
+						"anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+						"title": "Countries",
+						"description": "Filter by countries",
+						"examples": [["us", "dk"]]
+					},
+					"names": {
+						"anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+						"title": "Names",
+						"description": "Filter by names",
+						"examples": [["John Doe", "Peter Pan"]]
+					},
+					"emailStatuses": {
+						"anyOf": [
+							{
+								"items": {
+									"type": "string",
+									"enum": ["verified", "guessed", "catchAll", "notAttempted"]
+								},
+								"type": "array"
+							},
+							{ "type": "null" }
+						],
+						"title": "Emailstatuses",
+						"description": "Filter by email status",
+						"examples": [["verified", "catchAll"]]
+					},
+					"emails": {
+						"anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+						"title": "Emails",
+						"description": "Filter by email address",
+						"examples": [["email_1@domain.com", "email_2@domain.com"]]
+					},
+					"keywords": {
+						"anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+						"title": "Keywords",
+						"description": "Filter people based on keywords from their summary",
+						"examples": [["engineering", "research"]]
+					}
+				},
+				"additionalProperties": false,
+				"type": "object",
+				"title": "PeopleFilters"
+			},
+			"Person": {
+				"properties": {
+					"id": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Person id",
+						"description": "Ocean id of the person",
+						"examples": ["b8952796be57982d"]
+					},
+					"name": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Name",
+						"description": "Full name of the contact",
+						"examples": ["John Doe"]
+					},
+					"firstName": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "First name",
+						"description": "First name of the contact",
+						"examples": ["John"]
+					},
+					"lastName": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Last name",
+						"description": "Last name of the contact",
+						"examples": ["Doe"]
+					},
+					"jobTitle": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Job title",
+						"description": "Job title of the contact",
+						"examples": ["CEO"]
+					},
+					"email": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Email",
+						"description": "Email address of the contact",
+						"examples": ["john.doe@example.com"]
+					},
+					"phone": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Phone",
+						"description": "Phone number of the contact",
+						"examples": ["+45 12345678"]
+					},
+					"facebook": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Facebook",
+						"description": "Facebook page of the contact",
+						"examples": ["https://www.facebook.com/johndoe"]
+					},
+					"twitter": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Twitter",
+						"description": "The Twitter page of the contact",
+						"examples": ["https://twitter.com/johndoe"]
+					},
+					"linkedin": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "LinkedIn",
+						"description": "The LinkedIn page of the contact",
+						"examples": ["https://www.linkedin.com/in/johndoe"]
+					},
+					"country": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Country",
+						"description": "The country of the contact",
+						"examples": ["dk"]
+					}
+				},
+				"additionalProperties": false,
+				"type": "object",
+				"title": "Person"
+			},
+			"PublicCompany": {
+				"properties": {
+					"domain": {
+						"type": "string",
+						"title": "Domain",
+						"description": "Domain of the company, used as a unique identifier",
+						"examples": ["dundermifflinpaper.com"]
+					},
+					"countries": {
+						"anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+						"title": "Countries",
+						"description": "List of all countries in which the company operates",
+						"examples": [["us", "ca"]]
+					},
+					"primaryCountry": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Primary country",
+						"description": "Main country of the company",
+						"examples": ["us"]
+					},
+					"companySize": {
+						"anyOf": [{ "$ref": "#/components/schemas/PublicCompanySize" }, { "type": "null" }],
+						"title": "Company size range",
+						"description": "Company size range",
+						"examples": ["2-10"]
+					},
+					"industryCategories": {
+						"anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+						"title": "Industrycategories",
+						"description": "Industry categories of the company<br>Available values can be found at */v2/data-fields* endpoint",
+						"examples": [["Consumer Electronics", "Hardware"]]
+					},
+					"industries": {
+						"anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+						"title": "Industries",
+						"description": "Industries of the company<br>Available values can be found at */v2/data-fields* endpoint",
+						"examples": [["Audio", "Electronics"]]
+					},
+					"ecommerce": {
+						"anyOf": [{ "type": "boolean" }, { "type": "null" }],
+						"title": "E-Commerce",
+						"description": "True if the company is an e-commerce company",
+						"examples": [true]
+					},
+					"keywords": {
+						"anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+						"title": "Keywords",
+						"description": "Keywords associated with the company",
+						"examples": [["paper", "premium copy paper"]]
+					},
+					"employeeCountOcean": {
+						"anyOf": [{ "type": "integer" }, { "type": "null" }],
+						"title": "Employeecountocean",
+						"description": "Number of people working at the company in our database.",
+						"examples": [57]
+					},
+					"employeeCountLinkedin": {
+						"anyOf": [{ "type": "integer" }, { "type": "null" }],
+						"title": "Employeecountlinkedin",
+						"description": "Number of people linked to the company page on Linkedin. This number might be higher than `employeeCountOcean` because of private profiles.",
+						"examples": [70]
+					},
+					"revenue": {
+						"anyOf": [{ "$ref": "#/components/schemas/Revenue" }, { "type": "null" }],
+						"title": "Revenue range",
+						"description": "Revenue range",
+						"examples": ["1-10M"]
+					},
+					"yearFounded": {
+						"anyOf": [{ "type": "integer" }, { "type": "null" }],
+						"title": "Yearfounded",
+						"description": "Year the company was founded",
+						"examples": [1999]
+					},
+					"description": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Description",
+						"description": "Company's description",
+						"examples": [
+							"Dunder Mifflin Paper Company, Inc. is a fictional paper and office supplies wholesale company featured in the American television series The Office."
+						]
+					},
+					"emails": {
+						"anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+						"title": "Emails",
+						"description": "Emails of the company",
+						"examples": [["email1@domain.com", "email2@domain.com"]]
+					},
+					"phones": {
+						"anyOf": [
+							{ "items": { "$ref": "#/components/schemas/ContactNumber" }, "type": "array" },
+							{ "type": "null" }
+						],
+						"title": "Phones",
+						"description": "Phones of the company",
+						"examples": [
+							[
+								{ "country": "us", "number": "+1 212 456 7890", "primary": true },
+								{ "country": "ca", "number": "+1 250 555 0199" }
+							]
+						]
+					},
+					"logo": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Logo",
+						"description": "Logo of the company (URL)",
+						"examples": [
+							"https://cdn.ocean.io/companies-logos-v1/domain.com/020539e284d9318e805301b672ad23047c30818a.png"
+						]
+					},
+					"technologies": {
+						"anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+						"title": "Technologies",
+						"description": "Software technologies used by the company",
+						"examples": [["Accesso", "Adcash", "Atlassian Jira"]]
+					},
+					"technologyCategories": {
+						"anyOf": [{ "items": { "type": "string" }, "type": "array" }, { "type": "null" }],
+						"title": "Technology categories",
+						"description": "Technology categories of the company",
+						"examples": [["Security", "Analytics", "Blogs"]]
+					},
+					"mobileApps": {
+						"anyOf": [
+							{ "items": { "$ref": "#/components/schemas/MobileApp" }, "type": "array" },
+							{ "type": "null" }
+						],
+						"title": "Mobile apps",
+						"description": "Mobile apps produced by the company"
+					},
+					"webTraffic": {
+						"anyOf": [{ "$ref": "#/components/schemas/WebTraffic" }, { "type": "null" }],
+						"description": "Web traffic of the domain",
+						"examples": [
+							{ "bounceRate": 0.5227, "pageViews": 2155984, "pagesPerVisit": 4.88, "visits": 10000 }
+						]
+					},
+					"medias": {
+						"anyOf": [{ "$ref": "#/components/schemas/Medias" }, { "type": "null" }],
+						"title": "Social medias",
+						"description": "Social medias of the company"
+					},
+					"name": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Name",
+						"description": "Name of the company",
+						"examples": ["Dunder Mifflin Paper Company"]
+					},
+					"legalName": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Legalname",
+						"description": "Legal name of the company",
+						"examples": ["Dunder Mifflin Paper Company, Inc."]
+					},
+					"locations": {
+						"anyOf": [
+							{ "items": { "$ref": "#/components/schemas/Location" }, "type": "array" },
+							{ "type": "null" }
+						],
+						"title": "Locations",
+						"description": "Locations of the company"
+					},
+					"departmentSizes": {
+						"anyOf": [
+							{ "items": { "$ref": "#/components/schemas/DepartmentSize" }, "type": "array" },
+							{ "type": "null" }
+						],
+						"title": "Department sizes",
+						"description": "Number of employees per department",
+						"examples": [
+							[
+								{ "department": "Accounting and Finance", "size": 10 },
+								{ "department": "Sales", "size": 15 }
+							]
+						]
+					},
+					"rootUrl": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Rooturl",
+						"description": "Root url to access the website",
+						"examples": ["https://dundermifflinpaper.com/"]
+					},
+					"faxes": {
+						"anyOf": [
+							{ "items": { "$ref": "#/components/schemas/ContactNumber" }, "type": "array" },
+							{ "type": "null" }
+						],
+						"title": "Faxes",
+						"description": "Faxes of the company",
+						"examples": [[{ "country": "us", "number": "5709045026", "primary": true }]]
+					},
+					"impressum": {
+						"anyOf": [{ "$ref": "#/components/schemas/Impressum" }, { "type": "null" }],
+						"title": "Impressum",
+						"description": "Impressum (Imprint) data of the company (only for Germany, Austria, Switzerland)"
+					}
+				},
+				"type": "object",
+				"required": ["domain"],
+				"title": "PublicCompany"
+			},
+			"PublicCompanySize": {
+				"type": "string",
+				"enum": [
+					"0-1",
+					"2-10",
+					"11-50",
+					"51-200",
+					"201-500",
+					"501-1000",
+					"1001-5000",
+					"5001-10000",
+					"10001-50000",
+					"50001-100000",
+					"100001-500000",
+					"500000+"
+				],
+				"title": "PublicCompanySize"
+			},
+			"PublicCompanyWithScore": {
+				"properties": {
+					"company": {
+						"allOf": [{ "$ref": "#/components/schemas/PublicCompany" }],
+						"title": "Company",
+						"description": "Company found in the database"
+					},
+					"score": {
+						"anyOf": [{ "type": "number", "maximum": 1.0, "minimum": 0.0 }, { "type": "null" }],
+						"title": "Similarity score",
+						"description": "Similarity score used for similarity search",
+						"examples": [0.96]
+					}
+				},
+				"type": "object",
+				"required": ["company"],
+				"title": "PublicCompanyWithScore"
+			},
+			"PublicCountryCodeToRegionMapping": {
+				"properties": {
+					"code": {
+						"type": "string",
+						"title": "Region code",
+						"description": "Region code",
+						"examples": ["AL"]
+					},
+					"name": {
+						"type": "string",
+						"title": "Region name",
+						"description": "Region name",
+						"examples": ["Alabama"]
+					}
+				},
+				"type": "object",
+				"title": "PublicCountryCodeToRegionMapping"
+			},
+			"PublicGetDataFieldsResponse": {
+				"properties": {
+					"industries": {
+						"items": { "$ref": "#/components/schemas/PublicIndustries" },
+						"type": "array",
+						"title": "Industries",
+						"description": "List of industries",
+						"examples": [
+							[
+								{
+									"industries": ["Advertising Platforms", "Biopharma"],
+									"industryCategory": "Administrative Services"
+								}
+							]
+						]
+					},
+					"technologies": {
+						"items": { "$ref": "#/components/schemas/PublicTechnology" },
+						"type": "array",
+						"title": "Technologies",
+						"description": "List of technologies",
+						"examples": [{ "categories": ["Chat"], "name": "ChatStack" }]
+					},
+					"regions": {
+						"additionalProperties": {
+							"items": { "$ref": "#/components/schemas/PublicCountryCodeToRegionMapping" },
+							"type": "array"
+						},
+						"type": "object",
+						"title": "Country regions",
+						"description": "List of regions per country",
+						"examples": [{ "us": [{ "code": "AL", "name": "Alabama" }] }]
+					},
+					"seniorities": {
+						"items": { "$ref": "#/components/schemas/Seniority" },
+						"type": "array",
+						"title": "Seniorities",
+						"description": "List of seniorities computed from the job title of the person",
+						"examples": [["C-Level", "Manager"]]
+					},
+					"departments": {
+						"items": { "$ref": "#/components/schemas/Department" },
+						"type": "array",
+						"title": "Departments",
+						"description": "List of departments computed from the job title of the person",
+						"examples": [["Management", "Marketing and Advertising"]]
+					}
+				},
+				"type": "object",
+				"title": "PublicGetDataFieldsResponse"
+			},
+			"PublicIndustries": {
+				"properties": {
+					"industries": {
+						"items": { "type": "string" },
+						"type": "array",
+						"title": "Industries",
+						"description": "List of industries",
+						"examples": [["Advertising Platforms", "Biopharma"]]
+					},
+					"industryCategory": {
+						"type": "string",
+						"title": "Industry category",
+						"description": "Industry category name",
+						"examples": ["Administrative Services"]
+					}
+				},
+				"type": "object",
+				"title": "PublicIndustries"
+			},
+			"PublicPerson": {
+				"properties": {
+					"id": {
+						"type": "string",
+						"title": "Id",
+						"description": "Internal ocean id of the person",
+						"examples": ["e9447c74eafa8a19"]
+					},
+					"domain": {
+						"type": "string",
+						"title": "Domain",
+						"description": "Domain of the company the person is working for",
+						"examples": ["google.com"]
+					},
+					"name": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Name",
+						"description": "Full name of the person",
+						"examples": ["John Doe"]
+					},
+					"firstName": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Firstname",
+						"description": "First name of the person",
+						"examples": ["John"]
+					},
+					"lastName": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Lastname",
+						"description": "Last name of the person",
+						"examples": ["Doe"]
+					},
+					"country": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Country",
+						"description": "Country code of the person",
+						"examples": ["us", "dk"]
+					},
+					"location": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Location",
+						"description": "Location of the person",
+						"examples": ["Copenhagen, Capital Region, Denmark"]
+					},
+					"linkedinUrl": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Linkedinurl",
+						"description": "Link to the linkedin profile of the person",
+						"examples": ["https://www.linkedin.com/in/someone"]
+					},
+					"seniorities": {
+						"anyOf": [
+							{ "items": { "$ref": "#/components/schemas/Seniority" }, "type": "array" },
+							{ "type": "null" }
+						],
+						"title": "Seniorities",
+						"description": "List of seniorities computed from the job title of the person",
+						"examples": [["C-Level", "Manager"]]
+					},
+					"departments": {
+						"anyOf": [
+							{ "items": { "$ref": "#/components/schemas/Department" }, "type": "array" },
+							{ "type": "null" }
+						],
+						"title": "Departments",
+						"description": "List of departments computed from the job title of the person",
+						"examples": [["Management", "Marketing and Advertising"]]
+					},
+					"photo": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Photo",
+						"description": "Link to the person's profile picture on LinkedIn",
+						"examples": ["http://media.licdn.com/dms/image/somelink"]
+					},
+					"jobTitle": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Jobtitle",
+						"description": "Job title of the person",
+						"examples": ["Professeur"]
+					},
+					"jobTitleEnglish": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Jobtitleenglish",
+						"description": "English translation of the person's job title",
+						"examples": ["Teacher"]
+					},
+					"summary": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Summary",
+						"description": "Summary of the person",
+						"examples": ["Some text that the person wrote to describe themselves"]
+					}
+				},
+				"type": "object",
+				"required": ["id", "domain"],
+				"title": "PublicPerson"
+			},
+			"PublicSearchCompaniesBody": {
+				"properties": {
+					"size": {
+						"type": "integer",
+						"maximum": 10000.0,
+						"minimum": 1.0,
+						"title": "Maximum number of results",
+						"description": "Number of companies to return. The maximum value is 10,000. To get more than 10,000 results, use `searchAfter`.",
+						"default": 50,
+						"examples": [10]
+					},
+					"searchAfter": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Search after",
+						"description": "Use `searchAfter` returned by the previous request to get the next page",
+						"examples": ["NoBgdA7BAsBMEgGwBoAEAiADgGwK4HN8BTAJwC8wBjAewFt0BdIA"]
+					},
+					"companiesFilters": {
+						"anyOf": [{ "$ref": "#/components/schemas/CompaniesFilters" }, { "type": "null" }],
+						"title": "Companies filters",
+						"description": "Collection of companies filters to be applied to the search"
+					},
+					"peopleFilters": {
+						"anyOf": [{ "$ref": "#/components/schemas/PeopleFilters" }, { "type": "null" }],
+						"title": "People filters",
+						"description": "Collection of people filters to be applied to the search, the search results will display companies that have at least one person matching those filters"
+					}
+				},
+				"additionalProperties": false,
+				"type": "object",
+				"required": ["companiesFilters"],
+				"title": "PublicSearchCompaniesBody"
+			},
+			"PublicSearchCompaniesResult": {
+				"properties": {
+					"companies": {
+						"items": { "$ref": "#/components/schemas/PublicCompanyWithScore" },
+						"type": "array",
+						"title": "Companies found",
+						"description": "Array of found companies. Returns empty array if no results"
+					},
+					"searchAfter": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Search after",
+						"description": "Used for pagination. Use `searchAfter` returned by this request in the next request to get the next page of search results. If `searchAfter` is not present in the response then there is no next page.",
+						"examples": ["NoBgdA7BAsBMEgGwBoAEAiADgGwK4HN8BTAJwC8wBjAewFt0BdIA"]
+					},
+					"detail": {
+						"type": "string",
+						"title": "Detail",
+						"description": "Status text",
+						"examples": ["OK"]
+					},
+					"total": {
+						"anyOf": [{ "type": "integer" }, { "type": "null" }],
+						"title": "Total",
+						"description": "Total number of results of the search, accessible with pagination.",
+						"examples": [32871]
+					}
+				},
+				"type": "object",
+				"required": ["companies", "detail"],
+				"title": "PublicSearchCompaniesResult"
+			},
+			"PublicSearchPeopleBody": {
+				"properties": {
+					"size": {
+						"type": "integer",
+						"maximum": 10000.0,
+						"minimum": 1.0,
+						"title": "Maximum number of results",
+						"description": "Number of people to return. The maximum value is 10,000. To get more than 10,000 results, use `searchAfter`.",
+						"default": 50,
+						"examples": [10]
+					},
+					"searchAfter": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Search after",
+						"description": "Use `searchAfter` returned by the previous request to get the next page",
+						"examples": ["NoBgdA7BAsBMEgGwBoAEAiADgGwK4HN8BTAJwC8wBjAewFt0BdIA"]
+					},
+					"peopleFilters": {
+						"anyOf": [{ "$ref": "#/components/schemas/PeopleFilters" }, { "type": "null" }],
+						"title": "People filters",
+						"description": "Collection of filters to be applied to the search"
+					},
+					"companiesFilters": {
+						"anyOf": [{ "$ref": "#/components/schemas/CompaniesFilters" }, { "type": "null" }],
+						"title": "Companies filters",
+						"description": "Collection of companies filters, the search results will display people that are associated with those companies"
+					},
+					"onePersonPerDomain": {
+						"type": "boolean",
+						"title": "Onepersonperdomain",
+						"description": "Only return one person per company",
+						"default": false,
+						"examples": [true]
+					}
+				},
+				"additionalProperties": false,
+				"type": "object",
+				"required": ["peopleFilters"],
+				"title": "PublicSearchPeopleBody"
+			},
+			"PublicSearchPeopleResult": {
+				"properties": {
+					"people": {
+						"items": { "$ref": "#/components/schemas/PublicPerson" },
+						"type": "array",
+						"title": "People"
+					},
+					"searchAfter": {
+						"anyOf": [{ "type": "string" }, { "type": "null" }],
+						"title": "Search after",
+						"description": "Used for pagination. Use `searchAfter` returned by this request in the next request to get the next page of search results. If `searchAfter` is not present in the response then there is no next page.",
+						"examples": ["NoBgdA7BAsBMEgGwBoAEAiADgGwK4HN8BTAJwC8wBjAewFt0BdIA"]
+					},
+					"detail": {
+						"type": "string",
+						"title": "Detail",
+						"description": "Status text",
+						"examples": ["OK"]
+					},
+					"total": {
+						"anyOf": [{ "type": "integer" }, { "type": "null" }],
+						"title": "Total",
+						"description": "Total number of results of the search, accessible with pagination.",
+						"examples": [32871]
+					}
+				},
+				"type": "object",
+				"required": ["people", "detail"],
+				"title": "PublicSearchPeopleResult"
+			},
+			"PublicTechnology": {
+				"properties": {
+					"name": {
+						"type": "string",
+						"title": "Technology name",
+						"description": "The technology name",
+						"examples": ["ChatStack"]
+					},
+					"categories": {
+						"items": { "type": "string" },
+						"type": "array",
+						"title": "Technology categories",
+						"description": "Technology categories",
+						"examples": [["Chat"]]
+					}
+				},
+				"type": "object",
+				"title": "PublicTechnology"
+			},
+			"Revenue": {
+				"type": "string",
+				"enum": ["0-1M", "1-10M", "10-50M", "50-100M", "100-500M", "500-1000M", ">1000M"],
+				"title": "Revenue"
+			},
+			"Seniority": {
+				"type": "string",
+				"enum": [
+					"Owner",
+					"Founder",
+					"Board Member",
+					"C-Level",
+					"Partner",
+					"VP",
+					"Head",
+					"Director",
+					"Manager",
+					"Other"
+				],
+				"title": "Seniority"
+			},
+			"SocialMediasFilter": {
+				"properties": {
+					"medias": {
+						"items": {
+							"type": "string",
+							"enum": ["linkedin", "twitter", "facebook", "instagram", "youtube", "xing", "tiktok"]
+						},
+						"type": "array",
+						"title": "Social medias",
+						"description": "Array of the social medias to include"
+					},
+					"mode": {
+						"type": "string",
+						"enum": ["anyOf", "allOf"],
+						"title": "Search mode",
+						"description": "[default] anyOf - match at least one of the medias<br>allOf - match all of the medias",
+						"default": "anyOf"
+					}
+				},
+				"additionalProperties": false,
+				"type": "object",
+				"required": ["medias"],
+				"title": "SocialMediasFilter"
+			},
+			"State": {
+				"properties": {
+					"country": {
+						"type": "string",
+						"enum": ["at", "ca", "ch", "de", "es", "fr", "gb", "us"],
+						"title": "Country"
+					},
+					"abbreviation": {
+						"type": "string",
+						"title": "State name abbreviation",
+						"description": "Valid ISO state abbreviation"
+					}
+				},
+				"additionalProperties": false,
+				"type": "object",
+				"required": ["country", "abbreviation"],
+				"title": "State"
+			},
+			"TechnologiesFilter": {
+				"properties": {
+					"technologies": {
+						"items": { "type": "string" },
+						"type": "array",
+						"title": "Technologies",
+						"description": "Array of the technologies to include"
+					},
+					"mode": {
+						"type": "string",
+						"enum": ["anyOf", "allOf"],
+						"title": "Search mode",
+						"description": "[default] anyOf - match at least one of the technologies<br>allOf - match all of the technologies",
+						"default": "anyOf"
+					}
+				},
+				"additionalProperties": false,
+				"type": "object",
+				"required": ["technologies"],
+				"title": "TechnologiesFilter"
+			},
+			"ValidationError": {
+				"properties": {
+					"loc": {
+						"items": { "anyOf": [{ "type": "string" }, { "type": "integer" }] },
+						"type": "array",
+						"title": "Location"
+					},
+					"msg": { "type": "string", "title": "Message" },
+					"type": { "type": "string", "title": "Error Type" }
+				},
+				"type": "object",
+				"required": ["loc", "msg", "type"],
+				"title": "ValidationError"
+			},
+			"WebTraffic": {
+				"properties": {
+					"visits": {
+						"anyOf": [{ "type": "integer" }, { "type": "null" }],
+						"title": "Total visits for the last available month",
+						"description": "Total number of visits of the website for the last available month"
+					},
+					"pageViews": {
+						"anyOf": [{ "type": "integer" }, { "type": "null" }],
+						"title": "Website views",
+						"description": "Number of views of the website for the last available month"
+					},
+					"pagesPerVisit": {
+						"anyOf": [{ "type": "number" }, { "type": "null" }],
+						"title": "Pages per visit",
+						"description": "Average number of pages viewed per visit for the last available month"
+					},
+					"bounceRate": {
+						"anyOf": [{ "type": "number" }, { "type": "null" }],
+						"title": "Bouncerate",
+						"description": "Bounce rate of the domain for the last available month"
+					}
+				},
+				"type": "object",
+				"title": "WebTraffic"
+			}
+		},
+		"securitySchemes": { "HTTPBearer": { "type": "http", "scheme": "bearer" } }
+	},
+	"x-topics": [
+		{
+			"id": "authentication",
+			"title": "Authentication",
+			"content": "\n            Authentication for accessing the API is handled through API tokens, which can be generated and managed within the [user's account settings](https://app.ocean.io/settings/api-tokens).\n            API tokens provide a secure way to authenticate API requests and ensure that only authorized users can access the API resources.\n            Users must include their API token in every API request either as a header parameter named \"X-Api-Token\" or as a query parameter named \"apiToken\".\n            The API token serves as a unique identifier for the organization's account and grants access to the specified API endpoints based on the user's permissions.\n            ",
+			"example": "```\ncurl -X POST             'https://api.ocean.io/v1/endpoint?apiToken=YOUR_API_TOKEN_HERE'             -d '{\n                    \"name\": \"New Data\",\n                    \"description\": \"This is a new data entry.\"\n                }'\n            ```"
+		},
+		{
+			"id": "pagination",
+			"title": "Pagination",
+			"content": "\n                Pagination is employed to manage large datasets returned by API endpoints, ensuring efficient retrieval and navigation of results.\n                In this API, pagination is facilitated using the \"searchAfter\" parameter, which serves as a pointer to the next set of results.\n                After making an initial request, the API response includes this \"searchAfter\" value, which corresponds to the last item from the current page of results.\n                To retrieve the subsequent page of results, users include this \"searchAfter\" value in the subsequent API request as a parameter.\n                The API then returns the next page of results, starting from the item immediately after the one indicated by the provided \"searchAfter\" value.\n                This mechanism enables users to iteratively retrieve paginated data without duplication or omission, allowing for efficient navigation through large datasets.\n                Additionally, users can control the size of each page of results by specifying the desired number of items per page in their API requests.\n                Note that there is a maximum limit on the number of items per page, which is specified in the API documentation for each endpoint.\n            "
+		},
+		{
+			"id": "errors",
+			"title": "Errors",
+			"content": "\n                Ocean.io adopts standard HTTP error codes to convey various issues encountered during API interactions.\n                \n> In general: Codes in the `2xx` range indicate success. Codes in the `4xx` range indicate an error that failed given the information provided (e.g., a required parameter was omitted, a charge failed, etc.). Codes in the `5xx` range indicate an error with our servers.\n            "
+		},
+		{
+			"id": "rate-limiting",
+			"title": "Rate limiting",
+			"content": "\n            Rate limits are in place to ensure fair usage of the API resources and maintain system stability. By default, the rate limit is set to 60 requests per minute for most endpoints.\n            However, some specific endpoints may have different rate limits tailored to their respective functionalities.\n            Users can be informed about the specific rate limit for each endpoint through the API documentation or other provided resources.\n            Exceeding the rate limit for any given endpoint will result in subsequent requests being throttled until the rate limit window resets. Adhering to the specified rate limits is essential to prevent disruptions to service and ensure optimal performance for all users.\n            If you require a higher rate limit, please contact us.\n<br /><br />The API returns the following headers when a rate limit is exceeded:\n            - `Retry-After`: The number of seconds to wait before making another request.\n            - `X-RateLimit-Limit`: The maximum number of requests allowed in the current rate limit window.\n            "
+		}
+	],
+	"x-introduction-pages": [
+		{
+			"id": "authentication",
+			"title": "Authentication",
+			"content": "\n            Authentication for accessing the API is handled through API tokens, which can be generated and managed within the [user's account settings](https://app.ocean.io/settings/api-tokens).\n            API tokens provide a secure way to authenticate API requests and ensure that only authorized users can access the API resources.\n            Users must include their API token in every API request either as a header parameter named \"X-Api-Token\" or as a query parameter named \"apiToken\".\n            The API token serves as a unique identifier for the organization's account and grants access to the specified API endpoints based on the user's permissions.\n            ",
+			"example": "```bash\ncurl -X POST 'https://api.ocean.io/v1/endpoint?apiToken=YOUR_API_TOKEN_HERE' -d '{\n  \"name\": \"New Data\",\n  \"description\": \"This is a new data entry.\"\n}\n```"
+		},
+		{
+			"id": "pagination",
+			"title": "Pagination",
+			"content": "\n                Pagination is employed to manage large datasets returned by API endpoints, ensuring efficient retrieval and navigation of results.\n                In this API, pagination is facilitated using the \"searchAfter\" parameter, which serves as a pointer to the next set of results.\n                After making an initial request, the API response includes this \"searchAfter\" value, which corresponds to the last item from the current page of results.\n                To retrieve the subsequent page of results, users include this \"searchAfter\" value in the subsequent API request as a parameter.\n                The API then returns the next page of results, starting from the item immediately after the one indicated by the provided \"searchAfter\" value.\n                This mechanism enables users to iteratively retrieve paginated data without duplication or omission, allowing for efficient navigation through large datasets.\n                Additionally, users can control the size of each page of results by specifying the desired number of items per page in their API requests.\n                Note that there is a maximum limit on the number of items per page, which is specified in the API documentation for each endpoint.\n            "
+		},
+		{
+			"id": "errors",
+			"title": "Errors",
+			"content": "\n                Ocean.io adopts standard HTTP error codes to convey various issues encountered during API interactions.\n                \n> In general: Codes in the `2xx` range indicate success. Codes in the `4xx` range indicate an error that failed given the information provided (e.g., a required parameter was omitted, a charge failed, etc.). Codes in the `5xx` range indicate an error with our servers.\n            ",
+			"example": "\n            | Status Code            | Error Name           | Description                                                                                     |\n|------------------------|----------------------|-------------------------------------------------------------------------------------------------|\n| **200**                | OK                   | Everything worked as expected.                                                                  |\n| **400**                | Bad Request          | The request was unacceptable, often due to missing a required parameter.                        |\n| **401**                | Unauthorized         | No valid API key provided.                                                                      |\n| **403**                | Forbidden            | The API key doesn't have permissions to perform the request.                                    |\n| **404**                | Not Found            | The requested resource doesn't exist.                                                           |\n| **429**                | Too Many Requests    | Too many requests hit the API too quickly. We recommend an exponential backoff of your requests.|\n| **500, 502, 503, 504** | Server Errors        | Something went wrong on Ocean.s end.                                                            |\n            "
+		},
+		{
+			"id": "rate-limiting",
+			"title": "Rate limiting",
+			"content": "\n            Rate limits are in place to ensure fair usage of the API resources and maintain system stability. By default, the rate limit is set to 60 requests per minute for most endpoints.\n            However, some specific endpoints may have different rate limits tailored to their respective functionalities.\n            Users can be informed about the specific rate limit for each endpoint through the API documentation or other provided resources.\n            Exceeding the rate limit for any given endpoint will result in subsequent requests being throttled until the rate limit window resets. Adhering to the specified rate limits is essential to prevent disruptions to service and ensure optimal performance for all users.\n            If you require a higher rate limit, please contact us.\n<br>The API returns the following headers when a rate limit is exceeded:\n\n- *Retry-After*: The number of seconds to wait before making another request.\n\n- *X-RateLimit-Limit*: The maximum number of requests allowed in the current rate limit window.\n            "
+		}
+	]
+}

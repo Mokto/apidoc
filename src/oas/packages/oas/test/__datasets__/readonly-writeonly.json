@@ -1,0 +1,293 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Operation with readOnly and writeOnly properties",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "https://httpbin.org"
+    }
+  ],
+  "paths": {
+    "/": {
+      "put": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": { "type": "string" },
+                  "propWithReadOnly": { "type": "string", "readOnly": true },
+                  "propWithWriteOnly": { "type": "string", "writeOnly": true }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string" },
+                    "propWithReadOnly": { "type": "string", "readOnly": true },
+                    "propWithWriteOnly": { "type": "string", "writeOnly": true }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/product"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/product"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/allOf": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/product_allOf"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/product_allOf"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/readOnly": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/readOnly"
+              }
+            }
+          },
+          "required": true
+        }
+      },
+      "put": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/readOnly-partially"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    },
+    "/writeOnly": {
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/writeOnly"
+              }
+            }
+          },
+          "required": true
+        }
+      },
+      "put": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/writeOnly-partially"
+              }
+            }
+          },
+          "required": true
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "product_allOf": {
+        "allOf": [
+          { "$ref": "#/components/schemas/product" },
+          {
+            "type": "object",
+            "properties": {
+              "readOnly_primitive": {
+                "type": "string",
+                "readOnly": true
+              },
+              "writeOnly_primitive": {
+                "type": "string",
+                "writeOnly": true
+              }
+            }
+          }
+        ]
+      },
+      "product": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "readOnly": true
+          },
+          "product_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "start_date": {
+            "type": "string",
+            "format": "YYYY-MM-DD"
+          },
+          "end_date": {
+            "type": "string",
+            "format": "YYYY-MM-DD"
+          },
+          "start_hour": {
+            "type": "string",
+            "readOnly": true
+          },
+          "end_hour": {
+            "type": "string",
+            "readOnly": true
+          }
+        }
+      },
+      "readOnly-partially": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "product_id": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true
+          }
+        }
+      },
+      "readOnly": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "readOnly": true
+          },
+          "product_id": {
+            "type": "string",
+            "format": "uuid",
+            "readOnly": true
+          },
+          "start_date": {
+            "type": "string",
+            "format": "YYYY-MM-DD",
+            "readOnly": true
+          },
+          "end_date": {
+            "type": "string",
+            "format": "YYYY-MM-DD",
+            "readOnly": true
+          },
+          "start_hour": {
+            "type": "string",
+            "readOnly": true
+          },
+          "end_hour": {
+            "type": "string",
+            "readOnly": true
+          }
+        }
+      },
+      "writeOnly-partially": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "product_id": {
+            "type": "string",
+            "format": "uuid",
+            "writeOnly": true
+          }
+        }
+      },
+      "writeOnly": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "writeOnly": true
+          },
+          "product_id": {
+            "type": "string",
+            "format": "uuid",
+            "writeOnly": true
+          },
+          "start_date": {
+            "type": "string",
+            "format": "YYYY-MM-DD",
+            "writeOnly": true
+          },
+          "end_date": {
+            "type": "string",
+            "format": "YYYY-MM-DD",
+            "writeOnly": true
+          },
+          "start_hour": {
+            "type": "string",
+            "writeOnly": true
+          },
+          "end_hour": {
+            "type": "string",
+            "writeOnly": true
+          }
+        }
+      }
+    }
+  }
+}

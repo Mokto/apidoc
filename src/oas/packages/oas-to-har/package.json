@@ -1,0 +1,70 @@
+{
+  "name": "@readme/oas-to-har",
+  "description": "Utility to transform an OAS operation into a HAR representation",
+  "version": "23.2.6",
+  "author": "Jon Ursenbach <jon@ursenba.ch>",
+  "license": "ISC",
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    },
+    "./lib/configure-security": {
+      "require": "./dist/lib/configure-security.cjs",
+      "import": "./dist/lib/configure-security.js"
+    },
+    "./lib/types": {
+      "require": "./dist/lib/types.cjs",
+      "import": "./dist/lib/types.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.cts",
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/readmeio/oas.git",
+    "directory": "packages/oas-to-har"
+  },
+  "bugs": {
+    "url": "https://github.com/readmeio/oas/issues"
+  },
+  "scripts": {
+    "attw": "attw --pack --format table-flipped",
+    "build": "tsup",
+    "lint": "npm run lint:types && npm run lint:js",
+    "lint:js": "eslint . --ext .js,.ts --ignore-path ../../.gitignore",
+    "lint:types": "tsc --noEmit",
+    "prebuild": "rm -rf dist/",
+    "prepack": "npm run build",
+    "test": "vitest run --coverage"
+  },
+  "dependencies": {
+    "@readme/data-urls": "^3.0.0",
+    "oas": "file:../oas",
+    "qs": "^6.12.0",
+    "remove-undefined-objects": "^5.0.0"
+  },
+  "devDependencies": {
+    "@readme/oas-examples": "^5.12.0",
+    "@types/har-format": "^1.2.15",
+    "@types/qs": "^6.9.14",
+    "@vitest/coverage-v8": "^1.4.0",
+    "eslint": "^8.57.0",
+    "jest-expect-har": "^7.1.0",
+    "tsup": "^8.0.2",
+    "type-fest": "^4.15.0",
+    "typescript": "^5.2.2",
+    "vitest": "^1.4.0"
+  },
+  "prettier": "@readme/eslint-config/prettier"
+}
