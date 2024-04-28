@@ -1,16 +1,14 @@
-import type { Operation } from '$lib/models/operation.js';
+import { getOperation } from '$lib/utils/db.js';
 
 /** @type {import('./$types').PageServerLoad} */
-export async function load({ params, parent }) {
-	const data = await parent();
-
+export async function load({ params }) {
 	const operationId = params.page.split('/').pop();
 	if (!operationId) {
 		return {
 			isHomepage: true
 		};
 	}
-	const operation: Operation = data.operations[operationId];
+	const operation = await getOperation(operationId);
 	if (!operation) {
 		return {};
 	}
