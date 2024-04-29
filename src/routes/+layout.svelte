@@ -6,25 +6,32 @@
 	import '@fontsource-variable/open-sans';
 
 	import type { PageData } from './$types';
+	import { goto } from '$app/navigation';
 
 	/** @type {import('./$types').LayoutData} */
 	export let data: PageData;
 </script>
 
-<div class="flex h-screen">
-	<div class="w-80 min-w-80 border-r border-stripe-200 px-4 overflow-auto pb-6">
+<div class="h-16 bg-stripe-200 fixed inset-x-0 sm:hidden">
+	<div class="px-4">
+		<select class="bg-stripe-200 h-16 w-full" on:change={(e) => goto(e.target?.value)}>
+			{#each data.menu as menuGroup}
+				<optgroup label={menuGroup.title}>
+					{#each menuGroup.items as menuItem}
+						<option value={menuItem.link}>{menuItem.label}</option>
+					{/each}
+				</optgroup>
+			{/each}
+		</select>
+	</div>
+</div>
+
+<div class="flex h-screen pt-16 sm:pt-0">
+	<div
+		class="border-r border-stripe-200 px-4 overflow-auto pb-6 hidden sm:block w-60 min-w-60 md:w-80 md:min-w-80"
+	>
 		{#if data.logo}
 			<img src={data.logo} alt="" class="w-full" />
-		{/if}
-		{#if data.topics}
-			<MenuGroup label="Topics" />
-			<MenuItem label="Introduction" href="/" />
-			{#each data.topics as topic}
-				<MenuItem label={topic.title} href={`/#${topic.id}`} />
-			{/each}
-		{:else}
-			<div class="mt-4"></div>
-			<MenuItem label="Introduction" href="/" />
 		{/if}
 		{#each data.menu as menuGroup}
 			<MenuGroup label={menuGroup.title} />

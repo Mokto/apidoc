@@ -31,11 +31,11 @@
 		if (location.hash !== `#${id}`) {
 			const location = window.location.toString().split('#')[0];
 			replaceState(location + (id ? '#' + id : ''), {});
-			$page.url.hash = id;
 		}
 	};
 
 	afterUpdate(() => {
+		document.getElementById('main-container')?.removeEventListener('scroll', onScroll);
 		if (data.operation) {
 			document.getElementById('main-container')?.scrollTo({ top: 0 });
 			return;
@@ -48,7 +48,6 @@
 				element.scrollIntoView();
 			}
 		}
-		document.getElementById('main-container')?.removeEventListener('scroll', onScroll);
 		document.getElementById('main-container')?.addEventListener('scroll', onScroll);
 	});
 

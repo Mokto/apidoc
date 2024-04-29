@@ -4,7 +4,8 @@
 	export let href: string;
 	export let label: string;
 
-	$: active = href === $page.url.pathname + ($page.url.hash ? `${$page.url.hash}` : '');
+	$: hash = typeof window === 'undefined' ? $page.url.hash : window.location.hash;
+	$: active = href === $page.url.pathname + (hash ? `${hash}` : '');
 </script>
 
 <a

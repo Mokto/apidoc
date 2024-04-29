@@ -53,6 +53,15 @@ export const parseOpenAPI = async (openapi: OAS31Document) => {
 	const version = oas.getVersion();
 	const servers: ServerObject[] = oas.api.servers || [];
 
+	if (topics?.length) {
+		addToMenu(menu, 'Topics', 'Introduction', 'introduction', '/');
+		topics.forEach((topic) => {
+			addToMenu(menu, 'Topics', topic.title, topic.id, `/#${topic.id}`);
+		});
+	} else {
+		addToMenu(menu, '', 'Introduction', 'introduction', '/introduction');
+	}
+
 	const operations: { [operationId: string]: Operation } = {};
 
 	for (const operation of Object.values(oas.getPaths())) {
