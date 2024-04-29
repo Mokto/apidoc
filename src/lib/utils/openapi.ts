@@ -50,13 +50,13 @@ export const parseOpenAPI = async (openapi: OAS31Document) => {
 	// @ts-expect-error - x-logo is not a standard OpenAPI field
 	const logo = oas.getDefinition().info['x-logo']?.url;
 	const description = oas.getDefinition().info.description;
-	const version = oas.getVersion();
+	const version = oas.getDefinition().info.version;
 	const servers: ServerObject[] = oas.api.servers || [];
 
 	if (topics?.length) {
 		addToMenu(menu, 'Topics', 'Introduction', 'introduction', '/');
 		topics.forEach((topic) => {
-			addToMenu(menu, 'Topics', topic.title, topic.id, `/#${topic.id}`);
+			addToMenu(menu, 'Topics', topic.title, topic.id, `/topics/${topic.id}`);
 		});
 	} else {
 		addToMenu(menu, '', 'Introduction', 'introduction', '/introduction');
@@ -122,10 +122,10 @@ export const parseOpenAPI = async (openapi: OAS31Document) => {
 
 			const tags = op.getTags();
 			if (!tags?.length) {
-				addToMenu(menu, 'Default', op.getSummary(), method, `/${op.getOperationId()}`);
+				addToMenu(menu, 'Default', op.getSummary(), method, `/operations/${op.getOperationId()}`);
 			}
 			tags.forEach((tag) => {
-				addToMenu(menu, tag.name, op.getSummary(), method, `/${op.getOperationId()}`);
+				addToMenu(menu, tag.name, op.getSummary(), method, `/operations/${op.getOperationId()}`);
 			});
 		}
 	}
