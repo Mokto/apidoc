@@ -3,6 +3,7 @@
 	import Markdown from '$lib/components/markdown/markdown.svelte';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
+	import { urlStore } from '$lib/utils/url-store';
 
 	/** @type {import('./$types').PageData} */
 	export let data: PageData;
@@ -36,7 +37,11 @@
 
 		const id = menuItems[values.findIndex((y) => y === Math.min(...values))].id;
 
-		window.history.pushState({}, '', window.location.origin + (id ? '/topics/' + id : ''));
+		const newPathname = id ? '/topics/' + id : '/';
+		if (newPathname !== window.location.pathname) {
+			window.history.pushState({}, '', window.location.origin + newPathname);
+			urlStore.set(newPathname);
+		}
 	};
 
 	onMount(() => {

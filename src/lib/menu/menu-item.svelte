@@ -1,10 +1,12 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { urlStore } from '$lib/utils/url-store';
 
 	export let href: string;
 	export let label: string;
 
-	$: active = href === $page.url.pathname;
+	$: pathname = $urlStore || $page.url.pathname;
+	$: active = href === pathname;
 </script>
 
 <a

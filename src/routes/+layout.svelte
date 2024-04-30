@@ -7,9 +7,13 @@
 
 	import type { PageData } from './$types';
 	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
+	import { urlStore } from '$lib/utils/url-store';
 
 	/** @type {import('./$types').LayoutData} */
 	export let data: PageData;
+
+	page.subscribe((val) => urlStore.set(val.url.pathname));
 </script>
 
 <div class="h-16 bg-stripe-200 fixed inset-x-0 sm:hidden">
