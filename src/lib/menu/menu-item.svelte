@@ -16,6 +16,27 @@
 			: 'text-stripe-100'
 	}`}
 	{href}
+	on:click={(event) => {
+		if (
+			(window.location.pathname === '/' || window.location.pathname.indexOf('/topics') === 0) &&
+			(href === '/' || href.indexOf('/topics') === 0)
+		) {
+			if (href === '/') {
+				const element = document.getElementById('main-container');
+				if (element) {
+					element.scrollTo(0, 0);
+				}
+			} else {
+				const element = document.getElementById(href.split('/topics/')[1]);
+				if (element) {
+					element.scrollIntoView();
+				}
+			}
+			urlStore.set(href);
+			window.history.pushState({}, '', window.location.origin + href);
+			event.preventDefault();
+		}
+	}}
 >
 	{label}
 </a>

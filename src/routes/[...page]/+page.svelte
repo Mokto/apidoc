@@ -50,7 +50,9 @@
 	});
 </script>
 
-<div class="scrolled-item grid grid-cols-1 lg:grid-cols-2 gap-12 px-12 py-12">
+<div
+	class="scrolled-item max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 px-12 py-12"
+>
 	<div>
 		<h1 class="text-2xl font-bold mb-4">Introduction</h1>
 		<Markdown markdown={data.description} />
@@ -63,8 +65,11 @@
 <hr />
 
 {#if data.topics}
-	{#each data.topics as topic}
-		<div class="scrolled-item grid grid-cols-1 lg:grid-cols-2 gap-12 px-12 py-12" id={topic.id}>
+	{#each data.topics as topic, index}
+		<div
+			class={`scrolled-item max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 px-12 py-12 ${index == data.topics.length - 1 ? 'h-screen' : ''}`}
+			id={topic.id}
+		>
 			<div class={`${!topic.example ? 'col-span-2' : ''}`}>
 				<h1 class="text-2xl font-bold mb-4">{topic.title}</h1>
 				<Markdown markdown={topic.content} />
@@ -73,6 +78,8 @@
 				<Markdown markdown={topic.example} />
 			{/if}
 		</div>
-		<hr />
+		{#if index < data.topics.length - 1}
+			<hr />
+		{/if}
 	{/each}
 {/if}

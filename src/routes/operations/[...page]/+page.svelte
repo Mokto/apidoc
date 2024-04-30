@@ -16,7 +16,7 @@
 
 {#key data.operationId}
 	{#if data.operation}
-		<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 px-12 py-12">
+		<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 px-12 py-12 max-w-screen-xl mx-auto">
 			<div>
 				<h1 class="text-2xl font-bold mb-2">{data.operation.summary}</h1>
 				<div class="mb-4">
@@ -29,19 +29,8 @@
 		</div>
 		<hr />
 
-		{#if data.operation.queryParameters?.length}
-			<div class="grid grid-cols-1 gap-12 px-12 py-12">
-				<div>
-					<h2 class="text-lg font-bold mt-4 mb-2">Query Parameters</h2>
-					{#each data.operation.queryParameters as parameter}
-						<DocumentedProperty {parameter} />
-					{/each}
-				</div>
-			</div>
-			<hr />
-		{/if}
-		{#if data.operation.pathParameters?.length || data.operation.pathParameters?.length || data.operation.cookieParameters?.length || data.operation.headerParameters?.length}
-			<div class="grid grid-cols-1 gap-12 px-12 py-12">
+		{#if data.operation.pathParameters?.length || data.operation.queryParameters?.length || data.operation.cookieParameters?.length || data.operation.headerParameters?.length}
+			<div class="grid grid-cols-1 gap-12 px-12 py-12 max-w-screen-xl mx-auto">
 				<div>
 					<h2 class="text-lg font-bold mt-4 mb-2">Parameters</h2>
 					{#each data.operation.pathParameters as parameter}
@@ -62,7 +51,7 @@
 		{/if}
 
 		{#if data.operation.requestBody}
-			<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 px-12 py-12">
+			<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 px-12 py-12 max-w-screen-xl mx-auto">
 				<div>
 					<div class="flex items-center">
 						<h2 class="!my-2 text-lg font-bold mt-4 mb-2">Body</h2>
@@ -88,7 +77,7 @@
 			<hr />
 		{/if}
 		{#if data.operation.responses}
-			<div class="px-12 py-12">
+			<div class="px-12 py-12 max-w-screen-xl mx-auto">
 				<Tabs>
 					<TabHead>
 						{#each Object.keys(data.operation.responses) as statusCode}

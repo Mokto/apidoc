@@ -32,7 +32,7 @@
 
 <div class="flex h-screen pt-16 sm:pt-0">
 	<div
-		class="border-r border-stripe-200 px-4 overflow-auto pb-6 hidden sm:block w-60 min-w-60 md:w-80 md:min-w-80"
+		class="border-r border-stripe-200 px-4 overflow-auto pb-6 hidden sm:block w-60 min-w-60 md:w-72 md:min-w-72"
 	>
 		{#if data.logo}
 			<img src={data.logo} alt="" class="w-full" />
