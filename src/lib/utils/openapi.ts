@@ -1,4 +1,4 @@
-import type { Operation } from '$lib/models/operation';
+import type { Operation, Webhook } from '$lib/models/operation';
 import Oas from '../../oas/packages/oas/src';
 
 import type { MediaTypeObject, SchemaObject, ServerObject } from 'openapi3-ts/oas31';
@@ -20,15 +20,15 @@ interface Topic {
 	example: string;
 }
 
-const addToMenu = (menu: Menu, title: string, label: string, tag: string, link: string) => {
+const addToMenu = (menu: Menu, title: string, label: string, link: string) => {
 	// Find the group first and add an item to it. If the group doesn't exist, create it.
 	const group = menu.find((group) => group.title === title);
 	if (group) {
-		group.items.push({ label, tag, link });
+		group.items.push({ label, link });
 	} else {
 		menu.push({
 			title,
-			items: [{ label, tag, link }]
+			items: [{ label, link }]
 		});
 	}
 };
@@ -54,12 +54,12 @@ export const parseOpenAPI = async (openapi: OAS31Document) => {
 	const servers: ServerObject[] = oas.api.servers || [];
 
 	if (topics?.length) {
-		addToMenu(menu, 'Topics', 'Introduction', 'introduction', '/');
+		addToMenu(menu, 'Topics', 'Introduction', '/');
 		topics.forEach((topic) => {
-			addToMenu(menu, 'Topics', topic.title, topic.id, `/topics/${topic.id}`);
+			addToMenu(menu, 'Topics', topic.title, `/topics/${topic.id}`);
 		});
 	} else {
-		addToMenu(menu, '', 'Introduction', 'introduction', '/introduction');
+		addToMenu(menu, '', 'Introduction', '/introduction');
 	}
 
 	const operations: { [operationId: string]: Operation } = {};
@@ -122,13 +122,53 @@ export const parseOpenAPI = async (openapi: OAS31Document) => {
 
 			const tags = op.getTags();
 			if (!tags?.length) {
-				addToMenu(menu, 'Default', op.getSummary(), method, `/operations/${op.getOperationId()}`);
+				addToMenu(menu, 'Default', op.getSummary(), `/operations/${op.getOperationId()}`);
 			}
 			tags.forEach((tag) => {
-				addToMenu(menu, tag.name, op.getSummary(), method, `/operations/${op.getOperationId()}`);
+				addToMenu(menu, tag.name, op.getSummary(), `/operations/${op.getOperationId()}`);
 			});
 		}
 	}
+
+	const webhooks: { [webhookId: string]: Webhook } = {};
+
+	for (const operation of Object.values(oas.getWebhooks())) {
+		for (const method in operation) {
+			const op = operation[method as OpenAPIV3_1.HttpMethods];
+			if (!op.hasOperationId()) {
+				continue;
+			}
+
+			let requestBody: Webhook['requestBody'] = null;
+			const requestBodyData = op.getRequestBody() as [string, MediaTypeObject];
+			if (requestBodyData?.length) {
+				requestBody = {
+					type: requestBodyData[0],
+					schema: requestBodyData[1].schema as SchemaObject,
+					examples: op.getRequestBodyExamples()
+				};
+			}
+
+			webhooks[op.getOperationId()] = {
+				description: op.getDescription(),
+				summary: op.getSummary(),
+				// path: op.path,
+				method: method,
+				requestBody
+			};
+
+			addToMenu(menu, 'Webhooks', `${op.getOperationId()}`, `/webhooks/${op.getOperationId()}`);
+		}
+	}
+
+	// const webhookKeys = Object.keys(webhooks);
+	// webhookKeys.forEach((key) => {
+	// 	const methodKeys = Object.keys(webhooks[key]);
+	// 	methodKeys.forEach((method) => {
+	// 		addToMenu(menu, 'Webhooks', `${key}`, `/webhooks/${method}_${key}`);
+	// 	});
+	// });
+
 	return {
 		global: {
 			menu,
@@ -138,6 +178,7 @@ export const parseOpenAPI = async (openapi: OAS31Document) => {
 			version,
 			servers
 		},
-		operations
+		operations,
+		webhooks
 	};
 };

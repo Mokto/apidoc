@@ -26,3 +26,14 @@ export interface Operation {
 	queryParameters: ParameterObject[];
 	cookieParameters: ParameterObject[];
 }
+
+export interface Webhook {
+	method: string;
+	description: string;
+	summary: string;
+	requestBody: {
+		type: string;
+		schema: SchemaObject;
+		examples: RequestBodyExamples;
+	} | null;
+}
