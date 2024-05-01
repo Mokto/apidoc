@@ -1,8 +1,8 @@
 import type { Operation, Webhook } from '$lib/models/operation';
-import Oas from '../../oas/packages/oas/src';
+import Oas from 'oas';
+import type { OAS31Document } from 'oas/types';
+import type { OpenAPIV3_1 } from 'openapi-types';
 
-import type { MediaTypeObject, SchemaObject, ServerObject } from 'openapi3-ts/oas31';
-import type { OAS31Document } from '../../oas/packages/oas/src/types';
 type Menu = MenuGroup[];
 interface MenuGroup {
 	title: string;
@@ -39,7 +39,7 @@ export interface GlobalData {
 	logo: string | undefined;
 	description: string;
 	version: string;
-	servers: ServerObject[];
+	servers: OpenAPIV3_1.ServerObject[];
 }
 
 export const parseOpenAPI = async (openapi: OAS31Document) => {
@@ -51,7 +51,7 @@ export const parseOpenAPI = async (openapi: OAS31Document) => {
 	const logo = oas.getDefinition().info['x-logo']?.url;
 	const description = oas.getDefinition().info.description;
 	const version = oas.getDefinition().info.version;
-	const servers: ServerObject[] = oas.api.servers || [];
+	const servers = oas.api.servers || [];
 
 	if (topics?.length) {
 		addToMenu(menu, 'Topics', 'Introduction', '/');
@@ -72,11 +72,11 @@ export const parseOpenAPI = async (openapi: OAS31Document) => {
 			}
 
 			let requestBody: Operation['requestBody'] = null;
-			const requestBodyData = op.getRequestBody() as [string, MediaTypeObject];
+			const requestBodyData = op.getRequestBody() as [string, OpenAPIV3_1.MediaTypeObject];
 			if (requestBodyData?.length) {
 				requestBody = {
 					type: requestBodyData[0],
-					schema: requestBodyData[1].schema as SchemaObject,
+					schema: requestBodyData[1].schema as OpenAPIV3_1.SchemaObject,
 					examples: op.getRequestBodyExamples()
 				};
 			}
@@ -87,7 +87,7 @@ export const parseOpenAPI = async (openapi: OAS31Document) => {
 				const response = op.getResponseByStatusCode(statusCode);
 				if (typeof response != 'boolean') {
 					for (const contentType in response.content) {
-						const schema = response.content[contentType]?.schema as SchemaObject;
+						const schema = response.content[contentType]?.schema as OpenAPIV3_1.SchemaObject;
 						responses[statusCode] = {
 							type: contentType,
 							schema,
@@ -140,11 +140,11 @@ export const parseOpenAPI = async (openapi: OAS31Document) => {
 			}
 
 			let requestBody: Webhook['requestBody'] = null;
-			const requestBodyData = op.getRequestBody() as [string, MediaTypeObject];
+			const requestBodyData = op.getRequestBody() as [string, OpenAPIV3_1.MediaTypeObject];
 			if (requestBodyData?.length) {
 				requestBody = {
 					type: requestBodyData[0],
-					schema: requestBodyData[1].schema as SchemaObject,
+					schema: requestBodyData[1].schema as OpenAPIV3_1.SchemaObject,
 					examples: op.getRequestBodyExamples()
 				};
 			}

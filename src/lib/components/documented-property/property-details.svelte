@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { SchemaObject } from 'openapi3-ts/oas31';
 	import Tag from '../tag/tag.svelte';
+	import type { OpenAPIV3_1 } from 'openapi-types';
 
-	export let schema: SchemaObject;
+	export let schema: OpenAPIV3_1.SchemaObject;
 
 	let schemaAdditionalKeys = Object.keys(schema).filter(
 		(key) =>

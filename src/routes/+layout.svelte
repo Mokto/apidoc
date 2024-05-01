@@ -5,13 +5,12 @@
 	import 'highlight.js/styles/github.css';
 	import '@fontsource-variable/open-sans';
 
-	import type { PageData } from './$types';
+	import type { LayoutData } from './$types';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { urlStore } from '$lib/utils/url-store';
 
-	/** @type {import('./$types').LayoutData} */
-	export let data: PageData;
+	export let data: LayoutData;
 
 	page.subscribe((val) => urlStore.set(val.url.pathname));
 </script>

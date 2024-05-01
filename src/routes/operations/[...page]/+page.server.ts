@@ -1,7 +1,7 @@
 import { getOperation } from '$lib/utils/db.js';
+import type { PageServerLoad } from './$types';
 
-/** @type {import('./$types').PageServerLoad} */
-export async function load({ params }) {
+export const load: PageServerLoad = async ({ params }) => {
 	const operationId = params.page;
 	const operation = await getOperation(operationId);
 	if (!operation) {
@@ -12,4 +12,4 @@ export async function load({ params }) {
 		operation,
 		operationId
 	};
-}
+};

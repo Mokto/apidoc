@@ -1,11 +1,11 @@
 import { getGlobalData } from '$lib/utils/db';
+import type { LayoutServerLoad } from './$types';
 
-/** @type {import('./$types').LayoutServerLoad} */
-export async function load({ request }) {
+export const load: LayoutServerLoad = async ({ request }) => {
 	const globalData = await getGlobalData();
 
 	return {
 		host: request.headers.get('host'),
 		...globalData
 	};
-}
+};

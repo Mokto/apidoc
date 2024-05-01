@@ -1,7 +1,7 @@
 import { getWebhook } from '$lib/utils/db.js';
+import type { PageServerLoad } from './$types';
 
-/** @type {import('./$types').PageServerLoad} */
-export async function load({ params }) {
+export const load: PageServerLoad = async ({ params }) => {
 	const webhookId = params.page;
 	const webhook = await getWebhook(webhookId);
 	if (!webhook) {
@@ -12,4 +12,4 @@ export async function load({ params }) {
 		webhook,
 		webhookId
 	};
-}
+};

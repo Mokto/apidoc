@@ -1,35 +1,34 @@
 <script lang="ts">
-	import type {
-		ParameterObject,
-		ReferenceObject,
-		RequestBodyObject,
-		SchemaObject
-	} from 'openapi3-ts/oas31';
 	import FoldingBlock from './folding-block.svelte';
 	import Unhandled from './unhandled.svelte';
 	import Markdown from '../markdown/markdown.svelte';
 	import PropertyDetails from './property-details.svelte';
 	import { anyOfType, getFormattedType } from '$lib/utils/get-formatted-type';
+	import type { OpenAPIV3_1 } from 'openapi-types';
 
-	export let parameter: ParameterObject | ReferenceObject | RequestBodyObject | SchemaObject;
+	export let parameter:
+		| OpenAPIV3_1.ParameterObject
+		| OpenAPIV3_1.ReferenceObject
+		| OpenAPIV3_1.RequestBodyObject
+		| OpenAPIV3_1.SchemaObject;
 	export let prefix: string = '';
 	export let level = 0;
 	export let helperPrefix = '';
 
-	let parameterObject: ParameterObject | undefined;
-	let schemaObject: SchemaObject | undefined;
+	let parameterObject: OpenAPIV3_1.ParameterObject | undefined;
+	let schemaObject: OpenAPIV3_1.SchemaObject | undefined;
 	$: parameterObject =
 		parameter &&
 		!('items' in parameter) &&
 		!('type' in parameter) &&
 		!('anyOf' in parameter) &&
 		!('allOf' in parameter)
-			? (parameter as ParameterObject)
+			? (parameter as OpenAPIV3_1.ParameterObject)
 			: undefined;
 	$: schemaObject =
 		parameter &&
 		('items' in parameter || 'type' in parameter || 'anyOf' in parameter || 'allOf' in parameter)
-			? (parameter as SchemaObject)
+			? (parameter as OpenAPIV3_1.SchemaObject)
 			: undefined;
 </script>
 

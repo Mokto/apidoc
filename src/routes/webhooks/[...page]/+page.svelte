@@ -4,13 +4,7 @@
 	import DocumentedProperty from '$lib/components/documented-property/documented-property.svelte';
 	import Markdown from '$lib/components/markdown/markdown.svelte';
 	import CodeBlock from '$lib/components/code-block/code-block.svelte';
-	import UsageExample from '$lib/components/usage-example/usage-example.svelte';
-	import Tabs from '$lib/components/tab/tabs.svelte';
-	import Tab from '$lib/components/tab/tab.svelte';
-	import TabHead from '$lib/components/tab/tab-head.svelte';
-	import TabHeadItem from '$lib/components/tab/tab-head-item.svelte';
 
-	/** @type {import('./$types').PageData} */
 	export let data: PageData;
 </script>
 

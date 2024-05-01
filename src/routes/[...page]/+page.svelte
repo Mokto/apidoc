@@ -5,7 +5,6 @@
 	import { page } from '$app/stores';
 	import { urlStore } from '$lib/utils/url-store';
 
-	/** @type {import('./$types').PageData} */
 	export let data: PageData;
 
 	page.subscribe((value) => {

@@ -1,14 +1,14 @@
 <script lang="ts">
 	import type { Operation } from '$lib/models/operation';
-	import type { SchemaObject, ServerObject } from 'openapi3-ts/oas31';
+	import type { OpenAPIV3_1 } from 'openapi-types';
 	import CodeBlock from '../code-block/code-block.svelte';
 
 	export let operation: Operation;
-	export let servers: ServerObject[];
+	export let servers: OpenAPIV3_1.ServerObject[];
 
 	$: urlSearchParams = new URLSearchParams();
 	$: operation.queryParameters.map((parameter) => {
-		const schema = parameter.schema as SchemaObject;
+		const schema = parameter.schema as OpenAPIV3_1.SchemaObject;
 		urlSearchParams.set(parameter.name, schema?.type || 'string');
 	});
 

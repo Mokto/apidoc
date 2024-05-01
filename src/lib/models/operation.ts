@@ -1,9 +1,11 @@
-import type { SchemaObject, ParameterObject } from 'openapi3-ts/oas31';
+import type { OpenAPIV3_1 } from 'openapi-types';
 
-type RequestBodyExamples = {
-	examples: { value: string }[];
+export type RequestBodyExamples = {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	examples: any;
 	mediaType: string;
 }[];
+
 export interface Operation {
 	path: string;
 	method: string;
@@ -11,20 +13,20 @@ export interface Operation {
 	summary: string;
 	requestBody: {
 		type: string;
-		schema: SchemaObject;
+		schema: OpenAPIV3_1.SchemaObject;
 		examples: RequestBodyExamples;
 	} | null;
 	responses: {
 		[statusCode: string]: {
 			type: string;
-			schema: SchemaObject;
+			schema: OpenAPIV3_1.SchemaObject;
 			example: unknown;
 		};
 	};
-	headerParameters: ParameterObject[];
-	pathParameters: ParameterObject[];
-	queryParameters: ParameterObject[];
-	cookieParameters: ParameterObject[];
+	headerParameters: OpenAPIV3_1.ParameterObject[];
+	pathParameters: OpenAPIV3_1.ParameterObject[];
+	queryParameters: OpenAPIV3_1.ParameterObject[];
+	cookieParameters: OpenAPIV3_1.ParameterObject[];
 }
 
 export interface Webhook {
@@ -33,7 +35,7 @@ export interface Webhook {
 	summary: string;
 	requestBody: {
 		type: string;
-		schema: SchemaObject;
+		schema: OpenAPIV3_1.SchemaObject;
 		examples: RequestBodyExamples;
 	} | null;
 }

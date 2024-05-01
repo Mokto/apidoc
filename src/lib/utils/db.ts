@@ -1,8 +1,7 @@
 import Database from 'libsql';
 import { parseOpenAPI, type GlobalData } from './openapi';
-import type { Operation } from '$lib/models/operation';
+import type { Operation, Webhook } from '$lib/models/operation';
 import fs from 'fs';
-import type { Webhook } from '../../oas/packages/oas/src/operation';
 
 const dbLocation = 'openapi.db';
 

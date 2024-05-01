@@ -10,7 +10,6 @@
 	import TabHead from '$lib/components/tab/tab-head.svelte';
 	import TabHeadItem from '$lib/components/tab/tab-head-item.svelte';
 
-	/** @type {import('./$types').PageData} */
 	export let data: PageData;
 </script>
 
