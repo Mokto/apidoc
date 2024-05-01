@@ -9,12 +9,14 @@
 	import Tab from '$lib/components/tab/tab.svelte';
 	import TabHead from '$lib/components/tab/tab-head.svelte';
 	import TabHeadItem from '$lib/components/tab/tab-head-item.svelte';
+	import MetaTitle from '$lib/components/meta/meta-title.svelte';
 
 	export let data: PageData;
 </script>
 
 {#key data.operationId}
 	{#if data.operation}
+		<MetaTitle title={data.operation.summary} />
 		<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 px-12 py-12 max-w-screen-xl mx-auto">
 			<div>
 				<h1 class="text-2xl font-bold mb-2">{data.operation.summary}</h1>

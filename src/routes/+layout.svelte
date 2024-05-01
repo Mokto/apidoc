@@ -9,11 +9,22 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { urlStore } from '$lib/utils/url-store';
+	import { env } from '$env/dynamic/public';
 
 	export let data: LayoutData;
 
 	page.subscribe((val) => urlStore.set(val.url.pathname));
 </script>
+
+<svelte:head>
+	<link rel="icon" href="https://www.ocean.io/favicon.svg" type="image/svg+xml" />
+	{#if env.PUBLIC_FAVICON_SVG}
+		<link rel="icon" href={env.PUBLIC_FAVICON_SVG} type="image/svg+xml" />
+	{/if}
+	{#if env.PUBLIC_TITLE}
+		<title>{env.PUBLIC_TITLE}</title>
+	{/if}
+</svelte:head>
 
 <div class="h-16 bg-stripe-200 fixed inset-x-0 sm:hidden">
 	<div class="px-4">

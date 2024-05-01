@@ -4,12 +4,14 @@
 	import DocumentedProperty from '$lib/components/documented-property/documented-property.svelte';
 	import Markdown from '$lib/components/markdown/markdown.svelte';
 	import CodeBlock from '$lib/components/code-block/code-block.svelte';
+	import MetaTitle from '$lib/components/meta/meta-title.svelte';
 
 	export let data: PageData;
 </script>
 
 {#key data.webhookId}
 	{#if data.webhook}
+		<MetaTitle title="Webhook" />
 		<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 px-12 py-12 max-w-screen-xl mx-auto">
 			<div>
 				<h1 class="text-2xl font-bold mb-2">{data.webhook.summary}</h1>

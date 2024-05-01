@@ -10,7 +10,7 @@
 </script>
 
 <a
-	class={`block py-1 px-4 text-sm rounded-md mb-1 ${
+	class={`block py-1 px-4 text-sm rounded-md mb-1 line-clamp-2	 ${
 		active
 			? 'bg-accent-100/10 text-accent-200 hover:text-stripe-100 font-medium'
 			: 'text-stripe-100'
