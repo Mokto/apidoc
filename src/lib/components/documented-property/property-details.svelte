@@ -6,11 +6,21 @@
 
 	let schemaAdditionalKeys = Object.keys(schema).filter(
 		(key) =>
-			!['type', 'title', 'description', 'examples', 'example', 'default', 'nullable'].includes(key)
+			![
+				'type',
+				'title',
+				'description',
+				'examples',
+				'example',
+				'default',
+				'nullable',
+				'deprecated'
+			].includes(key)
 	);
 
 	$: shouldBeDisplayed =
 		schema.default ||
+		schema.deprecated ||
 		(schema.type?.toString() === 'string' && schemaAdditionalKeys.length > 0) ||
 		((schema.type?.toString() === 'integer' || schema.type?.toString() === 'number') &&
 			(schema.minimum || schema.maximum || schema.exclusiveMinimum || schema.exclusiveMaximum)) ||
@@ -59,13 +69,16 @@
 					Pattern: {schema.pattern}
 				</Tag>
 			{/if}
-		{:else}
+		{:else if !(schema.type?.toString() === 'boolean' && schemaAdditionalKeys.length === 0)}
 			<div class="bg-red-500 my-4 rounded-md p-2">
 				{JSON.stringify(schema)}
 			</div>
 		{/if}
 		{#if typeof schema.default !== 'undefined'}
 			<Tag>Default: {schema.default}</Tag>
+		{/if}
+		{#if schema.deprecated}
+			<Tag>Deprecated</Tag>
 		{/if}
 	</div>
 {/if}

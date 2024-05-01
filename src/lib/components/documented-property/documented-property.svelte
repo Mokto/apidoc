@@ -109,6 +109,9 @@
 				prefix={`${prefix}[string].`}
 				level={level + 1}
 			/>
+		{:else if typeof schemaObject.type == 'object' && schemaObject.type.length}
+			<div class="text-xs text-apihero-100 mb-2">{schemaObject.type.join(' | ')}</div>
+			<div class="text-sm"><Markdown markdown={schemaObject.description} /></div>
 		{:else if schemaObject.type != 'null'}
 			<Unhandled data={schemaObject} />
 		{/if}
