@@ -19,4 +19,7 @@ COPY --from=build /app/build /app/build
 COPY openapi.json /app/openapi.json
 EXPOSE 3000
 ENV NODE_ENV=production
+ENV PORT 3000
+ENV HOST 0.0.0.0
+
 CMD [ "node", "build" ]

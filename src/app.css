@@ -27,7 +27,7 @@ table {
 	border-collapse: collapse;
 	border-radius: theme('borderRadius.lg');
 	border-style: hidden;
-	box-shadow: 0 0 0 1px theme('colors.stripe-200');
+	box-shadow: 0 0 0 1px theme('colors.apihero-200');
 
 	background-color: theme('colors.stripe-400');
 
@@ -36,7 +36,7 @@ table {
 		background-color: theme('colors.stripe-500');
 		text-align: left;
 		font-size: theme('fontSize.sm');
-		border-bottom: 1px solid theme('colors.stripe-200');
+		border-bottom: 1px solid theme('colors.apihero-200');
 
 		&:first-child {
 			border-top-left-radius: theme('borderRadius.lg');
@@ -76,7 +76,7 @@ ol ol {
 }
 
 hr {
-	border-top: 1px solid theme('colors.stripe-200');
+	border-top: 1px solid theme('colors.apihero-200');
 }
 
 p {

@@ -55,9 +55,9 @@
 			<FoldingBlock label={schemaObject.title || ''} disabled={level == 0}>
 				{#each Object.keys(schemaObject.properties) as propertyName}
 					{@const property = schemaObject.properties[propertyName]}
-					<div class={prefix ? 'px-4 py-4 border-t border-stripe-200' : ''}>
-						<span class="font-semibold text-stripe-300"
-							>{#if prefix}<span class="text-stripe-100">{prefix}</span>{/if}{propertyName}</span
+					<div class={prefix ? 'px-4 py-4 border-t border-apihero-200' : ''}>
+						<span class="font-semibold text-apihero-300"
+							>{#if prefix}<span class="text-apihero-100">{prefix}</span>{/if}{propertyName}</span
 						>
 						<svelte:self
 							parameter={property}
@@ -68,14 +68,14 @@
 				{/each}
 			</FoldingBlock>
 		{:else if ['string', 'boolean', 'number', 'integer'].includes(schemaObject.type?.toString() || '')}
-			<div class="text-xs text-stripe-100 mb-2">
+			<div class="text-xs text-apihero-100 mb-2">
 				{helperPrefix}{getFormattedType(schemaObject)}
 			</div>
 			<div class="text-sm"><Markdown markdown={schemaObject.description} /></div>
 			<PropertyDetails schema={schemaObject} />
 		{:else if schemaObject.anyOf}
 			<div>
-				<div class="text-xs text-stripe-100 mb-2 flex">
+				<div class="text-xs text-apihero-100 mb-2 flex">
 					{anyOfType(schemaObject)}
 				</div>
 				<div class="text-sm">
@@ -90,7 +90,7 @@
 				{/each}
 			</div>
 		{:else if schemaObject.items}
-			<div class="text-xs text-stripe-100 mb-2">{getFormattedType(schemaObject)}</div>
+			<div class="text-xs text-apihero-100 mb-2">{getFormattedType(schemaObject)}</div>
 			<div class="text-sm"><Markdown markdown={schemaObject.description} /></div>
 			<svelte:self parameter={schemaObject.items} prefix={prefix + '[*].'} level={level + 1} />
 		{:else if schemaObject.allOf}
@@ -102,7 +102,7 @@
 				<svelte:self parameter={subParam} {prefix} level={level + 1} />
 			{/each}
 		{:else if schemaObject.type == 'object'}
-			<div class="text-xs text-stripe-100 mb-2">{getFormattedType(schemaObject)}</div>
+			<div class="text-xs text-apihero-100 mb-2">{getFormattedType(schemaObject)}</div>
 			<div class="text-sm"><Markdown markdown={schemaObject.description} /></div>
 			<svelte:self
 				parameter={schemaObject.additionalProperties?.items}

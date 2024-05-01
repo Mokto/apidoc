@@ -26,9 +26,9 @@
 	{/if}
 </svelte:head>
 
-<div class="h-16 bg-stripe-200 fixed inset-x-0 sm:hidden">
+<div class="h-16 bg-apihero-200 fixed inset-x-0 sm:hidden">
 	<div class="px-4">
-		<select class="bg-stripe-200 h-16 w-full" on:change={(e) => goto(e.target?.value)}>
+		<select class="bg-apihero-200 h-16 w-full" on:change={(e) => goto(e.target?.value)}>
 			{#each data.menu as menuGroup}
 				<optgroup label={menuGroup.title}>
 					{#each menuGroup.items as menuItem}
@@ -42,7 +42,7 @@
 
 <div class="flex h-screen pt-16 sm:pt-0">
 	<div
-		class="border-r border-stripe-200 px-4 overflow-auto pb-6 hidden sm:block w-60 min-w-60 md:w-72 md:min-w-72"
+		class="border-r border-apihero-200 px-4 overflow-auto pb-6 hidden sm:block w-60 min-w-60 md:w-72 md:min-w-72"
 	>
 		{#if data.logo}
 			<img src={data.logo} alt="" class="w-full" />

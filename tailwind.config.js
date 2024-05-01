@@ -9,9 +9,9 @@ export default {
 		},
 		extend: {
 			colors: {
-				'stripe-100': '#596171',
-				'stripe-200': '#D8DEE4', // 216, 222, 228
-				'stripe-300': '#353A44',
+				'apihero-100': '#596171',
+				'apihero-200': '#D8DEE4', // 216, 222, 228
+				'apihero-300': '#353A44',
 				'stripe-400': '#F5F6F8',
 				'stripe-500': '#EBEEF1',
 

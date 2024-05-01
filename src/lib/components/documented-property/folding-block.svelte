@@ -9,10 +9,10 @@
 	<slot />
 {:else}
 	<div
-		class={`rounded-3xl ${isOpen ? 'block' : 'inline-block'} border-stripe-200 border mt-4 mb-4`}
+		class={`rounded-3xl ${isOpen ? 'block' : 'inline-block'} border-apihero-200 border mt-4 mb-4`}
 	>
 		<button
-			class={`px-4 py-2 border-stripe-200 text-sm text-stripe-100 hover:text-stripe-300 font-semibold flex items-center  ${
+			class={`px-4 py-2 border-apihero-200 text-sm text-apihero-100 hover:text-apihero-300 font-semibold flex items-center  ${
 				isOpen ? 'w-full' : ''
 			}`}
 			on:click={() => (isOpen = !isOpen)}
@@ -24,7 +24,7 @@
 				viewBox="0 0 16 16"
 				fill="none"
 				xmlns="http://www.w3.org/2000/svg"
-				class={`fill-stripe-100 mr-2 ${
+				class={`fill-apihero-100 mr-2 ${
 					isOpen ? 'transform rotate-90' : ''
 				} transition-transform duration-200`}
 				role="img"

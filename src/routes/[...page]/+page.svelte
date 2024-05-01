@@ -4,6 +4,7 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import { urlStore } from '$lib/utils/url-store';
+	import MetaTitle from '$lib/components/meta/meta-title.svelte';
 
 	export let data: PageData;
 
@@ -49,6 +50,7 @@
 	});
 </script>
 
+<MetaTitle title="Topics" />
 <div
 	class="scrolled-item max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 px-12 py-12"
 >
