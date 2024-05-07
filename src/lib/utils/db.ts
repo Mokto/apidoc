@@ -25,8 +25,6 @@ export const prepareDatabase = async (jsonFile: string) => {
 		);
 	});
 
-	console.log(data.webhooks);
-
 	db.exec(`CREATE TABLE Webhooks ( webhook_id TEXT NOT NULL, data JSON NOT NULL ) RANDOM ROWID`);
 	Object.keys(data.webhooks).forEach((webhookId) => {
 		db.exec(
@@ -45,6 +43,9 @@ export const getOperation = async (operationId: string) => {
 	const result = db
 		.prepare(`SELECT data FROM Operations WHERE operation_id = '${operationId}'`)
 		.get() as { data: string };
+	if (!result) {
+		return null;
+	}
 	return JSON.parse(result.data) as Operation;
 };
 
