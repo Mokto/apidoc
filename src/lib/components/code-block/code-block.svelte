@@ -1,27 +1,22 @@
 <script lang="ts">
+	import './code-block.css';
 	import { CodeBlock } from 'svhighlight';
 
-	export let content: string;
 	export let code: string;
 	export let language: string;
 	export let headerText: string | undefined = undefined;
 
-	// $: console.log('content', content);
-
-	$: computedCode = content || code;
 	$: header = headerText || language;
 </script>
 
-{#key computedCode}
+{#key code}
 	<CodeBlock
 		{language}
-		background="!text-black bg-slate-100"
-		headerClasses="bg-accent-200 text-white"
+		background="!text-tinted-grey-900 bg-white border border-tinted-grey-200"
+		headerClasses="text-tinted-grey-900 bg-tinted-grey-50 border-b border-tinted-grey-200 font-medium fill-tinted-grey-900"
 		headerText={header}
-		code={computedCode}
+		{code}
 		showHeader={!!header}
 		showLineNumbers={false}
 	/>
 {/key}
-
-<!-- <span class="hidden" bind:this={data}><slot></slot></span> -->

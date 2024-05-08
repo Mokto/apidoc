@@ -51,7 +51,8 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@fontsource-variable/open-sans": "5.0.29",
+		"@fontsource-variable/rethink-sans": "5.0.4",
+		"@fontsource-variable/source-code-pro": "5.0.19",
 		"@markdoc/markdoc": "^0.4.0",
 		"@sveltejs/kit": "^2.5.7",
 		"@sveltejs/package": "^2.3.1",

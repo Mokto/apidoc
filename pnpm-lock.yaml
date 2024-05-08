@@ -8,9 +8,12 @@ importers:
 
   .:
     dependencies:
-      '@fontsource-variable/open-sans':
-        specifier: 5.0.29
-        version: 5.0.29
+      '@fontsource-variable/rethink-sans':
+        specifier: 5.0.4
+        version: 5.0.4
+      '@fontsource-variable/source-code-pro':
+        specifier: 5.0.19
+        version: 5.0.19
       '@markdoc/markdoc':
         specifier: ^0.4.0
         version: 0.4.0
@@ -296,8 +299,11 @@ packages:
   '@exodus/schemasafe@1.3.0':
     resolution: {integrity: sha512-5Aap/GaRupgNx/feGBwLLTVv8OQFfv3pq2lPRzPg9R+IOBnDgghTGW7l7EuVXOvg5cc/xSAlRW8rBrjIC3Nvqw==}
 
-  '@fontsource-variable/open-sans@5.0.29':
-    resolution: {integrity: sha512-p8T55iQwhErREcjY997t4ah9JKTyJNSBDDVfvVsWIQRGpA2fcTPk9rLue/Mkrr5/efkehxTSbT8JpTTRaFbM5A==}
+  '@fontsource-variable/rethink-sans@5.0.4':
+    resolution: {integrity: sha512-OjUQoUxITpdr0rJj+nMEiB3GHRhL0e1Gbi36JU1xyySlwVvVbnFwQB/QYIfDxFJGjkvuXtNw009gu6vvC82YAA==}
+
+  '@fontsource-variable/source-code-pro@5.0.19':
+    resolution: {integrity: sha512-mmeEykZsLRuFsklfamKVwahnWNpdAzpvGcOPPiFUydSnrd/9aEXy/HzOSYCOOTCP667L4nio9rB7wO3KVO5J/w==}
 
   '@humanwhocodes/config-array@0.11.14':
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
@@ -2199,7 +2205,9 @@ snapshots:
 
   '@exodus/schemasafe@1.3.0': {}
 
-  '@fontsource-variable/open-sans@5.0.29': {}
+  '@fontsource-variable/rethink-sans@5.0.4': {}
+
+  '@fontsource-variable/source-code-pro@5.0.19': {}
 
   '@humanwhocodes/config-array@0.11.14':
     dependencies:

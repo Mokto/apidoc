@@ -11,7 +11,7 @@
 }
 
 body {
-	font-family: 'Open Sans Variable', sans-serif;
+	font-family: 'Rethink Sans Variable', sans-serif;
 }
 
 a {
@@ -83,32 +83,37 @@ hr {
 	margin-bottom: theme('spacing.4');
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: theme('fontWeight.bold');
+	color: theme('colors.tinted-grey.900');
+	margin-bottom: theme('spacing.4');
+}
+
 h1 {
 	font-size: theme('fontSize.3xl');
-	margin-bottom: theme('spacing.4');
 }
 
 h2 {
 	font-size: theme('fontSize.2xl');
-	margin-bottom: theme('spacing.4');
 }
 
 h3 {
 	font-size: theme('fontSize.xl');
-	margin-bottom: theme('spacing.4');
 }
 
 h4 {
 	font-size: theme('fontSize.lg');
-	margin-bottom: theme('spacing.4');
 }
 
 h5 {
 	font-size: theme('fontSize.base');
-	margin-bottom: theme('spacing.4');
 }
 
 h6 {
 	font-size: theme('fontSize.sm');
-	margin-bottom: theme('spacing.4');
 }

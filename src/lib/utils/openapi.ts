@@ -35,6 +35,10 @@ const addToMenu = (menu: Menu, title: string, label: string, link: string) => {
 
 export interface GlobalData {
 	menu: Menu;
+	pagesOrder: {
+		label: string;
+		url: string;
+	}[];
 	topics: Topic[] | undefined;
 	logo: string | undefined;
 	description: string;
@@ -52,6 +56,7 @@ export const parseOpenAPI = async (openapi: OAS31Document) => {
 	const description = oas.getDefinition().info.description;
 	const version = oas.getDefinition().info.version;
 	const servers = oas.api.servers || [];
+	const pagesOrder: GlobalData['pagesOrder'] = [];
 
 	if (topics?.length) {
 		addToMenu(menu, 'Topics', 'Introduction', '/');
@@ -59,8 +64,9 @@ export const parseOpenAPI = async (openapi: OAS31Document) => {
 			addToMenu(menu, 'Topics', topic.title, `/topics/${topic.id}`);
 		});
 	} else {
-		addToMenu(menu, '', 'Introduction', '/introduction');
+		addToMenu(menu, '', 'Introduction', '/');
 	}
+	pagesOrder.push({ label: 'Introduction', url: '/' });
 
 	const operations: { [operationId: string]: Operation } = {};
 
@@ -122,10 +128,16 @@ export const parseOpenAPI = async (openapi: OAS31Document) => {
 
 			const tags = op.getTags();
 			if (!tags?.length) {
-				addToMenu(menu, 'Default', op.getSummary(), `/operations/${op.getOperationId()}`);
+				const label = op.getSummary();
+				const url = `/operations/${op.getOperationId()}`;
+				addToMenu(menu, 'Default', label, url);
+				pagesOrder.push({ label, url });
 			}
 			tags.forEach((tag) => {
-				addToMenu(menu, tag.name, op.getSummary(), `/operations/${op.getOperationId()}`);
+				const label = op.getSummary();
+				const url = `/operations/${op.getOperationId()}`;
+				addToMenu(menu, tag.name, label, url);
+				pagesOrder.push({ label, url });
 			});
 		}
 	}
@@ -172,6 +184,7 @@ export const parseOpenAPI = async (openapi: OAS31Document) => {
 	return {
 		global: {
 			menu,
+			pagesOrder,
 			topics,
 			logo,
 			description,

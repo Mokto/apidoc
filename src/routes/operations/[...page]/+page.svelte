@@ -10,6 +10,7 @@
 	import TabHead from '$lib/components/tab/tab-head.svelte';
 	import TabHeadItem from '$lib/components/tab/tab-head-item.svelte';
 	import MetaTitle from '$lib/components/meta/meta-title.svelte';
+	import Endpoints from '$lib/components/endpoints/endpoints.svelte';
 
 	export let data: PageData;
 </script>
@@ -19,14 +20,15 @@
 		<MetaTitle title={data.operation.summary} />
 		<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 px-12 py-12 max-w-screen-xl mx-auto">
 			<div>
-				<h1 class="text-2xl font-bold mb-2">{data.operation.summary}</h1>
-				<div class="mb-4">
-					<OperationTag method={data.operation.method} />
-					{data.operation.path}
-				</div>
+				<h1 class="text-2xl font-bold mb-6">{data.operation.summary}</h1>
 				<Markdown markdown={data.operation.description} />
 			</div>
-			<UsageExample operation={data.operation} servers={data.servers} />
+			<div>
+				<Endpoints operation={data.operation} /><UsageExample
+					operation={data.operation}
+					servers={data.servers}
+				/>
+			</div>
 		</div>
 		<hr />
 

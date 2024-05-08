@@ -68,14 +68,16 @@
 				{/each}
 			</FoldingBlock>
 		{:else if ['string', 'boolean', 'number', 'integer'].includes(schemaObject.type?.toString() || '')}
-			<div class="text-xs text-apihero-100 mb-2">
+			<div class="text-xs text-tinted-grey-700 mb-2 font-normal">
 				{helperPrefix}{getFormattedType(schemaObject)}
 			</div>
-			<div class="text-sm"><Markdown markdown={schemaObject.description} /></div>
+			{#if schemaObject.description}
+				<div class="text-sm"><Markdown markdown={schemaObject.description} /></div>
+			{/if}
 			<PropertyDetails schema={schemaObject} />
 		{:else if schemaObject.anyOf}
 			<div>
-				<div class="text-xs text-apihero-100 mb-2 flex">
+				<div class="text-xs text-tinted-grey-700 mb-2 font-normal flex">
 					{anyOfType(schemaObject)}
 				</div>
 				<div class="text-sm">
@@ -90,7 +92,9 @@
 				{/each}
 			</div>
 		{:else if schemaObject.items}
-			<div class="text-xs text-apihero-100 mb-2">{getFormattedType(schemaObject)}</div>
+			<div class="text-xs text-tinted-grey-700 mb-2 font-normal">
+				{getFormattedType(schemaObject)}
+			</div>
 			<div class="text-sm"><Markdown markdown={schemaObject.description} /></div>
 			<svelte:self parameter={schemaObject.items} prefix={prefix + '[*].'} level={level + 1} />
 		{:else if schemaObject.allOf}
@@ -102,7 +106,9 @@
 				<svelte:self parameter={subParam} {prefix} level={level + 1} />
 			{/each}
 		{:else if schemaObject.type == 'object'}
-			<div class="text-xs text-apihero-100 mb-2">{getFormattedType(schemaObject)}</div>
+			<div class="text-xs text-tinted-grey-700 mb-2 font-normal">
+				{getFormattedType(schemaObject)}
+			</div>
 			<div class="text-sm"><Markdown markdown={schemaObject.description} /></div>
 			<svelte:self
 				parameter={schemaObject.additionalProperties?.items}
@@ -110,7 +116,9 @@
 				level={level + 1}
 			/>
 		{:else if typeof schemaObject.type == 'object' && schemaObject.type.length}
-			<div class="text-xs text-apihero-100 mb-2">{schemaObject.type.join(' | ')}</div>
+			<div class="text-xs text-tinted-grey-700 mb-2 font-normal">
+				{schemaObject.type.join(' | ')}
+			</div>
 			<div class="text-sm"><Markdown markdown={schemaObject.description} /></div>
 		{:else if schemaObject.type != 'null'}
 			<Unhandled data={schemaObject} />

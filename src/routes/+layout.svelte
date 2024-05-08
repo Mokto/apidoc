@@ -3,7 +3,8 @@
 	import MenuItem from '$lib/menu/menu-item.svelte';
 	import '../app.css';
 	import 'highlight.js/styles/github.css';
-	import '@fontsource-variable/open-sans';
+	import '@fontsource-variable/rethink-sans';
+	import '@fontsource-variable/source-code-pro';
 
 	import type { LayoutData } from './$types';
 	import { goto } from '$app/navigation';

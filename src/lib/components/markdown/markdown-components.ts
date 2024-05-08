@@ -1,8 +1,11 @@
 import Callout from './callout.svelte';
-import CodeBlock from '../code-block/code-block.svelte';
 import type { ComponentType } from 'svelte';
+import CodeBlockMarkdocSvelte from './code-block-markdoc.svelte';
 
-export const components: { [componentName: string]: ComponentType } = { Callout, CodeBlock };
+export const components: { [componentName: string]: ComponentType } = {
+	Callout,
+	CodeBlock: CodeBlockMarkdocSvelte
+};
 
 export const markdownConfig = {
 	tags: {
