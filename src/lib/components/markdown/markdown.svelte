@@ -1,39 +1,21 @@
 <script lang="ts">
-	import hljs from 'highlight.js';
-	import markdownit from 'markdown-it';
-	const md = markdownit({
-		html: true,
-		breaks: true,
-		linkify: true,
-		typographer: true,
-		highlight: function (str, lang) {
-			let code = '';
-			if (lang && hljs.getLanguage(lang)) {
-				try {
-					code = hljs.highlight(str, { language: lang, ignoreIllegals: true }).value;
-				} catch (__) {}
-			}
-			if (!code) {
-				code = md.utils.escapeHtml(str);
-			}
-			return (
-				'<div>' +
-				`<div class="rounded-t-lg flex justify-between items-center p-2 pl-4 bg-accent-200 text-white">${
-					lang || 'Code'
-				}</div>` +
-				'<div class="text-black bg-slate-100"><code class="hljs text-black !bg-slate-100">' +
-				code +
-				'</code></div>' +
-				'</div>'
-			);
-		}
-	});
+	import Markdoc from '@markdoc/markdoc';
+
+	import MarkdocRenderer from './markdoc-renderer.svelte';
+	import { markdownConfig } from './markdown-components';
 
 	export let markdown: string | undefined;
 
-	$: html = markdown ? md.render(markdown.trim()) : '';
+	$: ast = markdown ? Markdoc.parse(markdown.trim()) : null;
+	$: content = ast ? Markdoc.transform(ast, markdownConfig) : null;
 </script>
 
-<div class="markdown">
-	{@html html}
-</div>
+{#if content}
+	{#if typeof content == 'string' || typeof content == 'number' || typeof content == 'boolean'}
+		{content}
+	{:else}
+		<MarkdocRenderer {content} />
+	{/if}
+{:else}
+	{markdown}
+{/if}
