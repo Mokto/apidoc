@@ -79,7 +79,7 @@ hr {
 	border-top: 1px solid theme('colors.apihero-200');
 }
 
-p {
+:not(.p-no-margin) > p {
 	margin-bottom: theme('spacing.4');
 }
 
