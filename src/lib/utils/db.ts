@@ -5,27 +5,34 @@ import fs from 'fs';
 
 const dbLocation = 'openapi.db';
 
-export const prepareDatabase = async (jsonFile: string) => {
+export const resetDatabase = () => {
 	if (fs.existsSync(dbLocation)) {
 		fs.unlinkSync(dbLocation);
 	}
 	const db = new Database(dbLocation);
-	const data = await parseOpenAPI(JSON.parse(jsonFile));
+
 	db.exec(`CREATE TABLE GlobalData ( data JSON NOT NULL ) RANDOM ROWID`);
+	db.exec(
+		`CREATE TABLE Operations ( operation_id TEXT NOT NULL, data JSON NOT NULL ) RANDOM ROWID`
+	);
+	db.exec(`CREATE TABLE Webhooks ( webhook_id TEXT NOT NULL, data JSON NOT NULL ) RANDOM ROWID`);
+
+	return db;
+};
+
+export const prepareDatabase = async (jsonFile: string) => {
+	const db = resetDatabase();
+	const data = await parseOpenAPI(JSON.parse(jsonFile));
 	db.exec(
 		`INSERT INTO GlobalData (data) VALUES ('${JSON.stringify(data.global).replace(/'/g, "''")}')`
 	);
 
-	db.exec(
-		`CREATE TABLE Operations ( operation_id TEXT NOT NULL, data JSON NOT NULL ) RANDOM ROWID`
-	);
 	Object.keys(data.operations).forEach((operationId) => {
 		db.exec(
 			`INSERT INTO Operations (operation_id, data) VALUES ('${operationId}', '${JSON.stringify(data.operations[operationId]).replace(/'/g, "''")}')`
 		);
 	});
 
-	db.exec(`CREATE TABLE Webhooks ( webhook_id TEXT NOT NULL, data JSON NOT NULL ) RANDOM ROWID`);
 	Object.keys(data.webhooks).forEach((webhookId) => {
 		db.exec(
 			`INSERT INTO Webhooks (webhook_id, data) VALUES ('${webhookId}', '${JSON.stringify(data.webhooks[webhookId]).replace(/'/g, "''")}')`
@@ -35,6 +42,10 @@ export const prepareDatabase = async (jsonFile: string) => {
 export const getGlobalData = async () => {
 	const db = new Database(dbLocation);
 	const result = db.prepare(`SELECT data FROM GlobalData `).get() as { data: string };
+	if (!result) {
+		return null;
+	}
+
 	return JSON.parse(result.data) as GlobalData;
 };
 

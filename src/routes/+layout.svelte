@@ -1,7 +1,5 @@
 <script lang="ts">
 	import Menu from '$lib/components/menu/menu.svelte';
-	import MenuGroup from '$lib/components/menu/menu-group.svelte';
-	import MenuItem from '$lib/components/menu/menu-item.svelte';
 	import '$lib';
 	import '@fontsource-variable/rethink-sans';
 	import '@fontsource-variable/source-code-pro';
@@ -27,20 +25,25 @@
 	{/if}
 </svelte:head>
 
-<div class="h-16 bg-apihero-200 fixed inset-x-0 sm:hidden">
-	<div class="px-4">
-		<select class="bg-apihero-200 h-16 w-full" on:change={(e) => goto(e.target?.value)}>
-			{#each data.menu as menuGroup}
-				<optgroup label={menuGroup.title}>
-					{#each menuGroup.items as menuItem}
-						<option value={menuItem.link}>{menuItem.label}</option>
-					{/each}
-				</optgroup>
-			{/each}
-		</select>
+{#if data?.menu}
+	<div class="h-16 bg-apihero-200 fixed inset-x-0 sm:hidden">
+		<div class="px-4">
+			<select class="bg-apihero-200 h-16 w-full" on:change={(e) => goto(e.target?.value)}>
+				{#each data.menu as menuGroup}
+					<optgroup label={menuGroup.title}>
+						{#each menuGroup.items as menuItem}
+							<option value={menuItem.link}>{menuItem.label}</option>
+						{/each}
+					</optgroup>
+				{/each}
+			</select>
+		</div>
 	</div>
-</div>
 
-<Menu logo={data.logo} menu={data.menu}>
-	<slot />
-</Menu>
+	<Menu logo={data.logo} menu={data.menu}>
+		<slot />
+	</Menu>
+{:else}
+	You haven't uploaded a documentation menu yet. Please refer to the documentation to learn how to
+	do so.
+{/if}
