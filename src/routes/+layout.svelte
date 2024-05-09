@@ -1,8 +1,8 @@
 <script lang="ts">
-	import MenuGroup from '$lib/menu/menu-group.svelte';
-	import MenuItem from '$lib/menu/menu-item.svelte';
-	import '../app.css';
-	import 'highlight.js/styles/github.css';
+	import Menu from '$lib/components/menu/menu.svelte';
+	import MenuGroup from '$lib/components/menu/menu-group.svelte';
+	import MenuItem from '$lib/components/menu/menu-item.svelte';
+	import '$lib';
 	import '@fontsource-variable/rethink-sans';
 	import '@fontsource-variable/source-code-pro';
 
@@ -41,22 +41,6 @@
 	</div>
 </div>
 
-<div class="flex h-screen pt-16 sm:pt-0">
-	<div
-		class="border-r border-apihero-200 px-4 overflow-auto pb-6 hidden sm:block w-60 min-w-60 md:w-72 md:min-w-72"
-	>
-		{#if data.logo}
-			<img src={data.logo} alt="" class="w-full" />
-		{/if}
-		{#each data.menu as menuGroup}
-			<MenuGroup label={menuGroup.title} />
-
-			{#each menuGroup.items as menuItem}
-				<MenuItem label={menuItem.label} href={menuItem.link} />
-			{/each}
-		{/each}
-	</div>
-	<div class="flex-1 overflow-auto" id="main-container">
-		<slot />
-	</div>
-</div>
+<Menu logo={data.logo} menu={data.menu}>
+	<slot />
+</Menu>

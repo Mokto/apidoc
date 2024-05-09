@@ -1,17 +1,8 @@
+import type { Menu } from '$lib/components/menu/menu-type';
 import type { Operation, Webhook } from '$lib/models/operation';
 import Oas from 'oas';
 import type { OAS31Document } from 'oas/types';
 import type { OpenAPIV3_1 } from 'openapi-types';
-
-type Menu = MenuGroup[];
-interface MenuGroup {
-	title: string;
-	items: {
-		label: string;
-		tag?: string;
-		link: string;
-	}[];
-}
 
 interface Topic {
 	id: string;
