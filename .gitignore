@@ -12,3 +12,5 @@ vite.config.ts.timestamp-*
 openapi.db
 dist
 openapi.json
+
+openapi-files
