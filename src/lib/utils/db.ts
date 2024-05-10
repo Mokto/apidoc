@@ -1,15 +1,22 @@
 import Database from 'libsql';
 import { parseOpenAPI, type GlobalData } from './openapi';
 import type { Operation, Webhook } from '$lib/models/operation';
-import fs from 'fs';
+import { env } from '$env/dynamic/private';
 
-const dbLocation = 'openapi.db';
+const DEFAULT_DB_LOCATION = 'openapi.db';
+
+const getDb = () => {
+	const dbLocation = env.LIBSQL_URL ? env.LIBSQL_URL : DEFAULT_DB_LOCATION;
+	const parameters = env.LIBSQL_AUTH_TOKEN ? { authToken: env.LIBSQL_AUTH_TOKEN } : {};
+
+	return new Database(dbLocation, parameters as never);
+};
 
 export const resetDatabase = () => {
-	if (fs.existsSync(dbLocation)) {
-		fs.unlinkSync(dbLocation);
-	}
-	const db = new Database(dbLocation);
+	const db = getDb();
+	db.exec('DROP TABLE IF EXISTS GlobalData');
+	db.exec('DROP TABLE IF EXISTS Operations');
+	db.exec('DROP TABLE IF EXISTS Webhooks');
 
 	db.exec(`CREATE TABLE GlobalData ( data JSON NOT NULL ) RANDOM ROWID`);
 	db.exec(
@@ -40,7 +47,7 @@ export const prepareDatabase = async (jsonFile: string) => {
 	});
 };
 export const getGlobalData = async () => {
-	const db = new Database(dbLocation);
+	const db = getDb();
 	const result = db.prepare(`SELECT data FROM GlobalData `).get() as { data: string };
 	if (!result) {
 		return null;
@@ -50,7 +57,7 @@ export const getGlobalData = async () => {
 };
 
 export const getOperation = async (operationId: string) => {
-	const db = new Database(dbLocation);
+	const db = getDb();
 	const result = db
 		.prepare(`SELECT data FROM Operations WHERE operation_id = '${operationId}'`)
 		.get() as { data: string };
@@ -61,7 +68,7 @@ export const getOperation = async (operationId: string) => {
 };
 
 export const getWebhook = async (webhookId: string) => {
-	const db = new Database(dbLocation);
+	const db = getDb();
 	const result = db
 		.prepare(`SELECT data FROM Webhooks WHERE webhook_id = '${webhookId}'`)
 		.get() as { data: string };
