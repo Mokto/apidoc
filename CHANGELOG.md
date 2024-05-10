@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/Mokto/apihero/compare/apihero-v0.1.1...apihero-v0.1.2) (2024-05-10)
+
+
+### Bug Fixes
+
+* build ([0dffcc9](https://github.com/Mokto/apihero/commit/0dffcc9d5b996caa41c97030c38fa564d39e46af))
+
 ## [0.1.1](https://github.com/Mokto/apihero/compare/apihero-v0.1.0...apihero-v0.1.1) (2024-05-10)
 
 
