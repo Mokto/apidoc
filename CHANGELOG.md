@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/Mokto/apihero/compare/apihero-v0.3.0...apihero-v0.3.1) (2024-05-11)
+
+
+### Bug Fixes
+
+* docker build ([5eec363](https://github.com/Mokto/apihero/commit/5eec363ab9ed88faa8b3a23c03637bbf74c0fa32))
+
 ## [0.3.0](https://github.com/Mokto/apihero/compare/apihero-v0.2.0...apihero-v0.3.0) (2024-05-11)
 
 
