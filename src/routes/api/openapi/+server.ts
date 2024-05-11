@@ -21,5 +21,7 @@ export const PUT: RequestHandler = async ({ request, url }) => {
 		error(400, 'No operations or webhooks found in the provided JSON.');
 	}
 
-	return json({});
+	return json({
+		success: true
+	});
 };
