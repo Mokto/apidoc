@@ -28,9 +28,13 @@ export const resetDatabase = () => {
 };
 
 export const prepareDatabase = async (jsonFile: string | object) => {
-	const db = resetDatabase();
 	const jsonFileData = typeof jsonFile === 'string' ? JSON.parse(jsonFile) : jsonFile;
 	const data = await parseOpenAPI(jsonFileData);
+	const countOperations = Object.keys(data.operations).length + Object.keys(data.webhooks).length;
+	if (countOperations === 0) {
+		return countOperations;
+	}
+	const db = resetDatabase();
 	db.exec(
 		`INSERT INTO GlobalData (data) VALUES ('${JSON.stringify(data.global).replace(/'/g, "''")}')`
 	);
@@ -46,6 +50,8 @@ export const prepareDatabase = async (jsonFile: string | object) => {
 			`INSERT INTO Webhooks (webhook_id, data) VALUES ('${webhookId}', '${JSON.stringify(data.webhooks[webhookId]).replace(/'/g, "''")}')`
 		);
 	});
+
+	return countOperations;
 };
 export const getGlobalData = async () => {
 	const db = getDb();
