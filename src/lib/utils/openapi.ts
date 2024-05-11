@@ -43,10 +43,10 @@ export const parseOpenAPI = async (openapi: OAS31Document) => {
 	const menu: Menu = [];
 	const topics = oas.getExtension('x-introduction-pages') as Topic[] | undefined;
 	// @ts-expect-error - x-logo is not a standard OpenAPI field
-	const logo = oas.getDefinition().info['x-logo']?.url;
-	const description = oas.getDefinition().info.description;
-	const version = oas.getDefinition().info.version;
-	const servers = oas.api.servers || [];
+	const logo = oas.getDefinition().info?.['x-logo']?.url;
+	const description = oas.getDefinition().info?.description;
+	const version = oas.getDefinition().info?.version;
+	const servers = oas.api?.servers || [];
 	const pagesOrder: GlobalData['pagesOrder'] = [];
 
 	if (topics?.length) {

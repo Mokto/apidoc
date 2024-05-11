@@ -27,9 +27,10 @@ export const resetDatabase = () => {
 	return db;
 };
 
-export const prepareDatabase = async (jsonFile: string) => {
+export const prepareDatabase = async (jsonFile: string | object) => {
 	const db = resetDatabase();
-	const data = await parseOpenAPI(JSON.parse(jsonFile));
+	const jsonFileData = typeof jsonFile === 'string' ? JSON.parse(jsonFile) : jsonFile;
+	const data = await parseOpenAPI(jsonFileData);
 	db.exec(
 		`INSERT INTO GlobalData (data) VALUES ('${JSON.stringify(data.global).replace(/'/g, "''")}')`
 	);
