@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.3.0](https://github.com/Mokto/apihero/compare/apihero-v0.2.0...apihero-v0.3.0) (2024-05-11)
+
+
+### Features
+
+* only reset databases if there is more than 1 operation ([84fb831](https://github.com/Mokto/apihero/commit/84fb831397f85d3a8dc8b60e02b6b8857f29cc44))
+* secure the update route by api token ([1a1c6f3](https://github.com/Mokto/apihero/commit/1a1c6f32ac10eaea546c9726573f46da986aeb51))
+
+
+### Bug Fixes
+
+* return an error if no element is found when adding the schema ([eb57c85](https://github.com/Mokto/apihero/commit/eb57c85cd4b36685f4443ec904c60d6bb2c074e5))
+
 ## [0.2.0](https://github.com/Mokto/apihero/compare/apihero-v0.1.2...apihero-v0.2.0) (2024-05-11)
 
 
