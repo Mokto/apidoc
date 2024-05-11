@@ -16,7 +16,10 @@ export const PUT: RequestHandler = async ({ request, url }) => {
 	}
 
 	const data = await request.json();
-	await prepareDatabase(data);
+	const elementsCount = await prepareDatabase(data);
+	if (elementsCount === 0) {
+		error(400, 'No operations or webhooks found in the provided JSON.');
+	}
 
 	return json({});
 };

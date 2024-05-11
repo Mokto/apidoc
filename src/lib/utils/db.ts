@@ -30,9 +30,9 @@ export const resetDatabase = () => {
 export const prepareDatabase = async (jsonFile: string | object) => {
 	const jsonFileData = typeof jsonFile === 'string' ? JSON.parse(jsonFile) : jsonFile;
 	const data = await parseOpenAPI(jsonFileData);
-	const countOperations = Object.keys(data.operations).length + Object.keys(data.webhooks).length;
-	if (countOperations === 0) {
-		return countOperations;
+	const elementsCount = Object.keys(data.operations).length + Object.keys(data.webhooks).length;
+	if (elementsCount === 0) {
+		return elementsCount;
 	}
 	const db = resetDatabase();
 	db.exec(
@@ -51,7 +51,7 @@ export const prepareDatabase = async (jsonFile: string | object) => {
 		);
 	});
 
-	return countOperations;
+	return elementsCount;
 };
 export const getGlobalData = async () => {
 	const db = getDb();
