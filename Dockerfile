@@ -1,4 +1,4 @@
-FROM node:20-slim AS base
+FROM node:20 AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
@@ -19,7 +19,7 @@ COPY --from=build /app/build /app/build
 
 EXPOSE 3000
 ENV NODE_ENV=production
-ENV PORT 3000
-ENV HOST 0.0.0.0
+ENV PORT=3000
+ENV HOST=0.0.0.0
 
 CMD [ "node", "build" ]
