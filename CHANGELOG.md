@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/Mokto/apihero/compare/apihero-v0.1.2...apihero-v0.2.0) (2024-05-11)
+
+
+### Features
+
+* new endpoint to update definition ([10b730f](https://github.com/Mokto/apihero/commit/10b730f05bb31ea7e1391e5cb350e3b51114b599))
+
 ## [0.1.2](https://github.com/Mokto/apihero/compare/apihero-v0.1.1...apihero-v0.1.2) (2024-05-10)
 
 
